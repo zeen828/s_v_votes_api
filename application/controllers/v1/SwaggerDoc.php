@@ -95,6 +95,141 @@ class SwaggerDoc extends CI_Controller {
 																) 
 														) 
 												),
+												"401" => array (
+														"description" => "會員登入錯誤" 
+												),
+												"403" => array (
+														"description" => "token未授權" 
+												),
+												"416" => array (
+														"description" => "傳遞資料錯誤" 
+												) 
+										) 
+								) 
+						),
+						"/votes/list" => array (
+								"get" => array (
+										"tags" => array (
+												"2.Vote" 
+										),
+										"summary" => "投票清單",
+										"description" => "投票清單",
+										"parameters" => array (
+												array (
+														"name" => "Authorization",
+														"description" => "token",
+														"in" => "header",
+														"type" => "string",
+														"required" => TRUE 
+												),
+												array (
+														"name" => "username",
+														"description" => "帳號",
+														"in" => "formData",
+														"type" => "string",
+														"required" => TRUE 
+												),
+												array (
+														"name" => "password",
+														"description" => "密碼",
+														"in" => "formData",
+														"type" => "string",
+														"required" => TRUE 
+												)
+										),
+										"responses" => array (
+												"200" => array (
+														"description" => "成功",
+														"schema" => array (
+																"title" => "result",
+																"type" => "object",
+																"description" => "api result data",
+																"properties" => array (
+																		"result" => $this->__get_responses_data ( "ml_api_oauth_token" ),
+																		"code" => array (
+																				"type" => "string",
+																				"description" => "狀態碼" 
+																		),
+																		"message" => array (
+																				"type" => "string",
+																				"description" => "訊息" 
+																		),
+																		"time" => array (
+																				"type" => "string",
+																				"description" => "耗費時間" 
+																		) 
+																) 
+														) 
+												),
+												"401" => array (
+														"description" => "會員登入錯誤" 
+												),
+												"403" => array (
+														"description" => "token未授權" 
+												),
+												"416" => array (
+														"description" => "傳遞資料錯誤" 
+												) 
+										) 
+								) 
+						),
+						"/votes/add" => array (
+								"post" => array (
+										"tags" => array (
+												"2.Vote" 
+										),
+										"summary" => "投票",
+										"description" => "投票",
+										"parameters" => array (
+												array (
+														"name" => "Authorization",
+														"description" => "token",
+														"in" => "header",
+														"type" => "string",
+														"required" => TRUE 
+												),
+												array (
+														"name" => "username",
+														"description" => "帳號",
+														"in" => "formData",
+														"type" => "string",
+														"required" => TRUE 
+												),
+												array (
+														"name" => "password",
+														"description" => "密碼",
+														"in" => "formData",
+														"type" => "string",
+														"required" => TRUE 
+												)
+										),
+										"responses" => array (
+												"200" => array (
+														"description" => "成功",
+														"schema" => array (
+																"title" => "result",
+																"type" => "object",
+																"description" => "api result data",
+																"properties" => array (
+																		"result" => $this->__get_responses_data ( "ml_api_oauth_token" ),
+																		"code" => array (
+																				"type" => "string",
+																				"description" => "狀態碼" 
+																		),
+																		"message" => array (
+																				"type" => "string",
+																				"description" => "訊息" 
+																		),
+																		"time" => array (
+																				"type" => "string",
+																				"description" => "耗費時間" 
+																		) 
+																) 
+														) 
+												),
+												"401" => array (
+														"description" => "會員登入錯誤" 
+												),
 												"403" => array (
 														"description" => "token未授權" 
 												),
