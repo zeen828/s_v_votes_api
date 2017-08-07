@@ -37,8 +37,18 @@ class Votes extends MY_REST_Controller {
 					'time' => 0 
 			);
 			// 接收變數
-			$data_input ['username'] = $this->get ( 'username' );
-			$data_input ['password'] = $this->get ( 'password' );
+			$data_input ['config_id'] = $this->get ( 'config_id' );
+			// cache name key
+			$data_cache['name_1'] = sprintf('event_vote_config_%d', $data_input ['config_id']);
+			// $this->cache->memcached->delete ( $data_cache['name_1'] );
+			$data_cache [$data_cache['name_1']] = $this->cache->memcached->get ( $data_cache['name_1'] );
+			if ($data_cache [$cache_name_dealer] == false) {
+				// 防止array組合型態錯誤警告
+				$data_cache [$data_cache['name_1']] = array ();
+				//
+				
+
+			}
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
