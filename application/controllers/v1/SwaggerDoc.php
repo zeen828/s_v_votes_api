@@ -79,7 +79,7 @@ class SwaggerDoc extends CI_Controller {
 																"type" => "object",
 																"description" => "api result data",
 																"properties" => array (
-																		"result" => $this->__get_responses_data ( "user level info" ),
+																		"result" => $this->__get_responses_data ( "ml_api_oauth_token" ),
 																		"code" => array (
 																				"type" => "string",
 																				"description" => "狀態碼" 
@@ -119,180 +119,40 @@ class SwaggerDoc extends CI_Controller {
 	function __get_responses_data($type) {
 		$responses = array ();
 		switch ($type) {
-			case "user level info" :
+			case "ml_api_oauth_token" :
 				$responses = array (
-						"title" => "user level info",
+						"title" => "user login info",
 						"type" => "object",
-						"description" => "會員等級資訊",
+						"description" => "會員登入訊息",
 						"properties" => array (
-								"no" => array (
+								"access_token" => array (
+										"type" => "string",
+										"description" => "access token" 
+								),
+								"token_type" => array (
+										"type" => "string",
+										"description" => "token type" 
+								),
+								"expires_in" => array (
 										"type" => "integer",
+										"description" => "有效時限" 
+								),
+								"refresh_token" => array (
+										"type" => "string",
+										"description" => "refresh token" 
+								),
+								"created_at" => array (
+										"type" => "string",
+										"description" => "建立時間" 
+								),
+								"status_code" => array (
+										"type" => "string",
 										"description" => "序號" 
 								),
-								"title" => array (
-										"type" => "integer",
+								"message" => array (
+										"type" => "string",
 										"description" => "會員等級" 
-								),
-								"tag" => array (
-										"type" => "string",
-										"description" => "會員等級代號" 
-								) 
-						) 
-				);
-				break;
-			case "order info" :
-				$responses = array (
-						"title" => "order info",
-						"type" => "object",
-						"description" => "訂單資訊",
-						"properties" => array (
-								"order_sn" => array (
-										"type" => "integer",
-										"description" => "訂單序號" 
-								),
-								"package_no" => array (
-										"type" => "integer",
-										"description" => "產品包編號" 
-								),
-								"package_title" => array (
-										"type" => "string",
-										"description" => "產品包標題" 
-								),
-								"coupon_sn" => array (
-										"type" => "string",
-										"description" => "序號" 
-								),
-								"coupon_title" => array (
-										"type" => "string",
-										"description" => "序號設定標題" 
-								),
-								"expenses" => array (
-										"type" => "integer",
-										"description" => "折扣" 
-								),
-								"subtotal" => array (
-										"type" => "integer",
-										"description" => "實際付金額" 
-								),
-								"status" => array (
-										"type" => "integer",
-										"description" => "狀態(-1:fail,0:pending,1:success,2:cancel)" 
-								),
-								"createdAt" => array (
-										"type" => "string",
-										"description" => "建立時間" 
-								),
-								"activeAt" => array (
-										"type" => "string",
-										"description" => "啟用時間" 
-								),
-								"deadlineAt" => array (
-										"type" => "string",
-										"description" => "到期時間" 
-								),
-								"note" => array (
-										"type" => "string",
-										"description" => "備註" 
-								) 
-						) 
-				);
-				break;
-			case "package info" :
-				$responses = array (
-						"title" => "package info",
-						"type" => "object",
-						"description" => "產品包資訊",
-						"properties" => array (
-								"no" => array (
-										"type" => "integer",
-										"description" => "產品編號" 
-								),
-								"title" => array (
-										"type" => "string",
-										"description" => "標題" 
-								),
-								"description" => array (
-										"type" => "string",
-										"description" => "描述" 
-								),
-								"cost" => array (
-										"type" => "integer",
-										"description" => "成本" 
-								),
-								"price" => array (
-										"type" => "integer",
-										"description" => "銷售價錢" 
-								),
-								"createdAt" => array (
-										"type" => "string",
-										"description" => "建立時間" 
-								),
-								"updatedAt" => array (
-										"type" => "string",
-										"description" => "更新時間" 
-								) 
-						) 
-				);
-				break;
-			case "payment info" :
-				$responses = array (
-						"title" => "payment info",
-						"type" => "object",
-						"description" => "金流通路",
-						"properties" => array (
-								"no" => array (
-										"type" => "integer",
-										"description" => "通路號碼" 
-								),
-								"title" => array (
-										"type" => "string",
-										"description" => "通路" 
-								),
-								"description" => array (
-										"type" => "string",
-										"description" => "描述" 
-								),
-								"proxy" => array (
-										"type" => "string",
-										"description" => "代理商代號(spgateway:智付通,pay2go:智付寶)" 
-								),
-								"type" => array (
-										"type" => "string",
-										"description" => "付款類型(CREDIT:信用卡,WEBATM:WEBATM,VACC:ATM轉帳,CVS:超商代碼,BARCODE:條碼)" 
-								) 
-						) 
-				);
-				break;
-			case "pagination info" :
-				$responses = array (
-						"title" => "pagination info",
-						"type" => "object",
-						"description" => "分頁資訊",
-						"properties" => array (
-								"page_previous" => array (
-										"type" => "integer",
-										"description" => "上一頁數" 
-								),
-								"page" => array (
-										"type" => "integer",
-										"description" => "當前頁數" 
-								),
-								"page_next" => array (
-										"type" => "integer",
-										"description" => "下一頁數" 
-								),
-								"page_size" => array (
-										"type" => "integer",
-										"description" => "每頁資料筆數" 
-								),
-								"page_total" => array (
-										"type" => "integer",
-										"description" => "總頁數" 
-								),
-								"count_total" => array (
-										"type" => "integer",
-										"description" => "總資料筆數" 
-								) 
+								)
 						) 
 				);
 				break;
