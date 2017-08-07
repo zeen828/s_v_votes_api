@@ -69,7 +69,7 @@ class Auth extends MY_REST_Controller {
 			curl_close($ch);
 			$output = json_decode($output);
 			print_r($output);
-			if(!empty($output->message)){
+			if(isset($output->message) && !empty($output->message)){
 				// API有錯誤訊息
 				$this->data_result ['message'] = $this->lang->line ( 'user_error' );
 				$this->data_result ['code'] = $this->config->item ( 'user_error' );
