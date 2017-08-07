@@ -48,14 +48,16 @@ class Auth extends MY_REST_Controller {
 				return;
 			}
 			// 登入API
-			//$ch = curl_init();
+			$ch = curl_init();
 			//print_r($ch);
-			//curl_setopt($ch, CURLOPT_URL, "http://smexpress.mitake.com.tw/SmQueryGet.asp?username=23740512&password=0287928888");
-			//curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			//$output = curl_exec($ch);
-			//curl_close($ch);
-			//echo $output;
-			$this->data_result ['tmp'] = 'depoly23--56';
+			$url = 'http://api-background.vidol.tv/v1/oauth/token';
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array("username"=>$data_input ['username'], "password"=>$data_input ['password']))); 
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$output = curl_exec($ch);
+			curl_close($ch);
+			$this->data_result ['output'] = $output;
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
