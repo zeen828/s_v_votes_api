@@ -30,8 +30,12 @@ class SwaggerDoc extends CI_Controller {
 				"tags" => array (
 						array (
 								"name" => "1.Auth",
-								"description" => "2.登入" 
+								"description" => "1.登入" 
 						),
+						array (
+								"name" => "2.Vote",
+								"description" => "2.投票" 
+						)
 				),
 				"schemes" => array (
 						"http" 
@@ -42,8 +46,8 @@ class SwaggerDoc extends CI_Controller {
 										"tags" => array (
 												"1.Auth" 
 										),
-										"summary" => "取得會員等級",
-										"description" => "取得會員等級",
+										"summary" => "會員登入",
+										"description" => "會員登入",
 										"parameters" => array (
 												array (
 														"name" => "Authorization",
@@ -53,10 +57,16 @@ class SwaggerDoc extends CI_Controller {
 														"required" => TRUE 
 												),
 												array (
-														"name" => "user_no",
-														"description" => "購買會員(user_pk等會員整合後使用)",
-														"in" => "query",
-														"type" => "integer" 
+														"name" => "username",
+														"description" => "帳號",
+														"in" => "formData",
+														"type" => "string" 
+												),
+												array (
+														"name" => "password",
+														"description" => "密碼",
+														"in" => "formData",
+														"type" => "string" 
 												)
 										),
 										"responses" => array (
