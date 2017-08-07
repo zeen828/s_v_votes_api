@@ -57,7 +57,7 @@ class Auth extends MY_REST_Controller {
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$output = curl_exec($ch);
 			curl_close($ch);
-			$this->data_result ['output'] = $output;
+			$this->data_result ['result'] = json_decode($output);
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
