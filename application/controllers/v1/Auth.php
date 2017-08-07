@@ -25,6 +25,7 @@ class Auth extends MY_REST_Controller {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
 			// 引入
+			$this->config->load ( 'ml_api' );
 			$this->config->load ( 'restful_status_code' );
 			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
 			// 變數
@@ -49,12 +50,20 @@ class Auth extends MY_REST_Controller {
 			}
 			// 登入API
 			$ch = curl_init();
-			//print_r($ch);
-			$url = 'http://api-background.vidol.tv/v1/oauth/token';
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded', 'Authorization: Basic MWIyNjZkNjI0OWJiYjljM2M2ZDdkYjM0YWU1YzU5YzZhMzYyZmQxODgxOGJkMzM2NmNiYjY5YTUzOGYwZmU2NDpjODNlMDkxMmQ5MWI1NjAzM2RlNmFmODdjZDIxZGZkODk1NTBkNzA4M2Q3ODM0ZDIyMWVmNmNkZGM5ODg4ZjM2'));
+			$curl_url = sprintf('http://%s/v1/oauth/token', $this->config->item ( 'ml_api_domain' ));
+			$curl_header = array(
+				'Content-Type: application/x-www-form-urlencoded',
+				sprintf('Authorization: %s', $this->config->item ( 'ml_api_basic_token' )
+			);
+			$curl_post = http_build_query(array(
+				'grant_type'=>'password',
+				'username'=>$data_input ['username'],
+				'password'=>$data_input ['password']
+			));
+			curl_setopt($ch, CURLOPT_URL, $curl_url);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $curl_header);
 			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('grant_type'=>'password', 'username'=>$data_input ['username'], 'password'=>$data_input ['password']))); 
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $curl_post); 
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$output = curl_exec($ch);
 			curl_close($ch);
