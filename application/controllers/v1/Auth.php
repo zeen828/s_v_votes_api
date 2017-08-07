@@ -36,14 +36,25 @@ class Auth extends MY_REST_Controller {
 					'message' => '',
 					'time' => 0 
 			);
+			// 接收變數
+			$data_input ['username'] = $this->post ( 'username' );
+			$data_input ['password'] = $this->post ( 'password' );
+			// 必填檢查
+			if (empty ( $data_input ['username'] ) && empty ( $data_input ['password'] )) {
+				// 必填錯誤
+				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
+				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
+				$this->response ( $this->data_result, 416 );
+				return;
+			}
 			// 登入API
-			$ch = curl_init();
-			print_r($ch);
-			curl_setopt($ch, CURLOPT_URL, "http://smexpress.mitake.com.tw/SmQueryGet.asp?username=23740512&password=0287928888");
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			$output = curl_exec($ch);
-			curl_close($ch);
-			echo $output;
+			//$ch = curl_init();
+			//print_r($ch);
+			//curl_setopt($ch, CURLOPT_URL, "http://smexpress.mitake.com.tw/SmQueryGet.asp?username=23740512&password=0287928888");
+			//curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			//$output = curl_exec($ch);
+			//curl_close($ch);
+			//echo $output;
 
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
