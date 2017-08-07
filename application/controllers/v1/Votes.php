@@ -27,6 +27,10 @@ class Votes extends MY_REST_Controller {
 			// 引入
 			$this->config->load ( 'restful_status_code' );
 			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
+			$this->load->driver ( 'cache', array (
+					'adapter' => 'memcached',
+					'backup' => 'dummy' 
+			) );
 			// 變數
 			$data_input = array ();
 			$data_cache = array ();
