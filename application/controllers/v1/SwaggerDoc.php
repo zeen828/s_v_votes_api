@@ -60,13 +60,15 @@ class SwaggerDoc extends CI_Controller {
 														"name" => "username",
 														"description" => "帳號",
 														"in" => "formData",
-														"type" => "string" 
+														"type" => "string",
+														"required" => TRUE 
 												),
 												array (
 														"name" => "password",
 														"description" => "密碼",
 														"in" => "formData",
-														"type" => "string" 
+														"type" => "string",
+														"required" => TRUE 
 												)
 										),
 										"responses" => array (

@@ -24,6 +24,27 @@ class Auth extends MY_REST_Controller {
 		try {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
+			// 引入
+			$this->config->load ( 'restful_status_code' );
+			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
+			// 變數
+			$data_input = array ();
+			$data_cache = array ();
+			$this->data_result = array (
+					'result' => array (),
+					'code' => $this->config->item ( 'system_default' ),
+					'message' => '',
+					'time' => 0 
+			);
+			// 登入API
+			$ch = curl_init();
+			print_r($ch);
+			curl_setopt($ch, CURLOPT_URL, "http://smexpress.mitake.com.tw/SmQueryGet.asp?username=23740512&password=0287928888");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$output = curl_exec($ch);
+			curl_close($ch);
+			echo $output;
+
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
