@@ -46,7 +46,7 @@ class Votes extends MY_REST_Controller {
 			$data_cache['name_1'] = sprintf('event_vote_config_%d', $data_input ['config_id']);
 			$this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [$data_cache['name_1']] = $this->cache->memcached->get ( $data_cache['name_1'] );
-			if ($data_cache [$cache_name_dealer] == false) {
+			if ($data_cache [$data_cache['name_1']] == false) {
 				// 防止array組合型態錯誤警告
 				$data_cache [$data_cache['name_1']] = array ();
 				//
