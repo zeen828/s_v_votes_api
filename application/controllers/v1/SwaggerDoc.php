@@ -107,7 +107,7 @@ class SwaggerDoc extends CI_Controller {
 										) 
 								) 
 						),
-						"/votes/list" => array (
+						"/votes/vote" => array (
 								"get" => array (
 										"tags" => array (
 												"2.Vote" 
@@ -171,9 +171,7 @@ class SwaggerDoc extends CI_Controller {
 														"description" => "傳遞資料錯誤" 
 												) 
 										) 
-								) 
-						),
-						"/votes/add" => array (
+								),
 								"post" => array (
 										"tags" => array (
 												"2.Vote" 
