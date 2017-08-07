@@ -53,7 +53,7 @@ class Auth extends MY_REST_Controller {
 			$curl_url = sprintf('http://%s/v1/oauth/token', $this->config->item ( 'ml_api_domain' ));
 			$curl_header = array(
 				'Content-Type: application/x-www-form-urlencoded',
-				sprintf('Authorization: %s', $this->config->item ( 'ml_api_basic_token' )
+				sprintf('Authorization: %s', $this->config->item ( 'ml_api_basic_token' ))
 			);
 			$curl_post = http_build_query(array(
 				'grant_type'=>'password',
