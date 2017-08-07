@@ -55,7 +55,7 @@ class Auth extends MY_REST_Controller {
 			//$output = curl_exec($ch);
 			//curl_close($ch);
 			//echo $output;
-			$this->data_result ['tmp'] = 'depoly2';
+			$this->data_result ['tmp'] = 'depoly23';
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
