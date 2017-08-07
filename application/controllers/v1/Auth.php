@@ -53,7 +53,7 @@ class Auth extends MY_REST_Controller {
 			$url = 'http://api-background.vidol.tv/v1/oauth/token';
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array("username"=>$data_input ['username'], "password"=>$data_input ['password']))); 
+			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array('grant_type'=>'password', 'username'=>$data_input ['username'], 'password'=>$data_input ['password']))); 
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			$output = curl_exec($ch);
 			curl_close($ch);
