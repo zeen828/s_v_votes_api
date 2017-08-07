@@ -40,14 +40,24 @@ class Votes extends MY_REST_Controller {
 			$data_input ['config_id'] = $this->get ( 'config_id' );
 			// cache name key
 			$data_cache['name_1'] = sprintf('event_vote_config_%d', $data_input ['config_id']);
-			// $this->cache->memcached->delete ( $data_cache['name_1'] );
+			$this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [$data_cache['name_1']] = $this->cache->memcached->get ( $data_cache['name_1'] );
 			if ($data_cache [$cache_name_dealer] == false) {
 				// 防止array組合型態錯誤警告
 				$data_cache [$data_cache['name_1']] = array ();
 				//
-				
-
+				$db = $this->load->database('vidol_event_read', TRUE);
+				$db->where('vote_config_id', $data_input ['config_id']);
+				$db->where('status', '1');
+				$db->where('status', '1');
+				$db->order_by('group_no', 'ASC');
+				$db->order_by('sort', 'ASC');
+				$query = $db->get('event_vote_item_tbl');
+				if ($query->num_rows() > 0) {
+					foreach ($query->result() as $row) {
+						print_r($row);
+					}
+				}
 			}
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
