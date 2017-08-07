@@ -45,6 +45,9 @@ class Auth extends MY_REST_Controller {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
+				// 必填錯誤標記
+				$this->benchmark->mark ( 'error_required' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_required' );
 				$this->response ( $this->data_result, 416 );
 				return;
 			}
@@ -68,15 +71,17 @@ class Auth extends MY_REST_Controller {
 			$output = curl_exec($ch);
 			curl_close($ch);
 			$output = json_decode($output);
-			print_r($output);
+			$this->data_result ['result'] = $output;
 			if(isset($output->message) && !empty($output->message)){
 				// API有錯誤訊息
 				$this->data_result ['message'] = $this->lang->line ( 'user_error' );
 				$this->data_result ['code'] = $this->config->item ( 'user_error' );
+				// 登入錯誤標記
+				$this->benchmark->mark ( 'error_login' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_login' );
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
-			$this->data_result ['result'] = $output;
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
