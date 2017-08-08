@@ -47,7 +47,7 @@ class SwaggerDoc extends CI_Controller {
 												"1.Auth" 
 										),
 										"summary" => "Vidol會員登入",
-										"description" => "會員登入",
+										"description" => "Vidol會員登入",
 										"parameters" => array (
 												array (
 														"name" => "Authorization",
@@ -122,7 +122,7 @@ class SwaggerDoc extends CI_Controller {
 										"tags" => array (
 												"1.Auth" 
 										),
-										"summary" => "會員登入",
+										"summary" => "FaceBook會員登入",
 										"description" => "FaceBook會員登入",
 										"parameters" => array (
 												array (
