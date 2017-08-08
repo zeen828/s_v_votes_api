@@ -46,23 +46,28 @@ class Votes extends CI_Controller {
 					//
 					$cache_name = sprintf('event_vote_%d', $value->id);
 					$data_cache[$cache_name] = array(
-						''=>$value,
-						''=>$value,
-						''=>$value,
+						'id'=>$value_id,
+						'title'=>$value->title,
+						'des'=>$value->des,
+						'item'=>array(),
 					);
 					$query = $this->event_vote_item_model->get_query_by_configid_status_sort('*', $value->id);
 					if ($query->num_rows() > 0) {
 						foreach ($query->result() as $row) {
 							print_r($row);
+							$data_cache[$cache_name]['item'][] = $row;
+							unset($row);
 						}
 					}
 					// 紀錄
-					$this->cache->memcached->save ( $cache_name, $data, 3000 );
+					$this->cache->memcached->save ( $cache_name, $data_cache[$cache_name], 3000 );
+					unset($query);
 					unset($cache_name);
 					unset($value);
 				}
 			}
 			unset($query);
+			print_r($data_cache);
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
