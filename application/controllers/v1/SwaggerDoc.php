@@ -123,17 +123,10 @@ class SwaggerDoc extends CI_Controller {
 														"required" => TRUE 
 												),
 												array (
-														"name" => "username",
-														"description" => "帳號",
-														"in" => "formData",
-														"type" => "string",
-														"required" => TRUE 
-												),
-												array (
-														"name" => "password",
-														"description" => "密碼",
-														"in" => "formData",
-														"type" => "string",
+														"name" => "config_id",
+														"description" => "投票設定號碼",
+														"in" => "query",
+														"type" => "integer",
 														"required" => TRUE 
 												)
 										),
@@ -160,9 +153,6 @@ class SwaggerDoc extends CI_Controller {
 																		) 
 																) 
 														) 
-												),
-												"401" => array (
-														"description" => "會員登入錯誤" 
 												),
 												"403" => array (
 														"description" => "token未授權" 
@@ -209,7 +199,7 @@ class SwaggerDoc extends CI_Controller {
 																"type" => "object",
 																"description" => "api result data",
 																"properties" => array (
-																		"result" => $this->__get_responses_data ( "ml_api_oauth_token" ),
+																		"result" => $this->__get_responses_data ( "vote_item_info" ),
 																		"code" => array (
 																				"type" => "string",
 																				"description" => "狀態碼" 
@@ -285,6 +275,47 @@ class SwaggerDoc extends CI_Controller {
 								"message" => array (
 										"type" => "string",
 										"description" => "會員等級" 
+								)
+						) 
+				);
+				break;
+			case "vote_item_info" :
+				$responses = array (
+						"title" => "vote item info",
+						"type" => "object",
+						"description" => "投票項目資料",
+						"properties" => array (
+								"id" => array (
+										"type" => "string",
+										"description" => "項目ID" 
+								),
+								"config" => array (
+										"type" => "string",
+										"description" => "設定ID" 
+								),
+								"group" => array (
+										"type" => "integer",
+										"description" => "分群" 
+								),
+								"title" => array (
+										"type" => "string",
+										"description" => "標題" 
+								),
+								"des" => array (
+										"type" => "string",
+										"description" => "描述" 
+								),
+								"img" => array (
+										"type" => "string",
+										"description" => "圖片網址" 
+								),
+								"url" => array (
+										"type" => "string",
+										"description" => "連結網址" 
+								),
+								"proportion" => array (
+										"type" => "string",
+										"description" => "得票率" 
 								)
 						) 
 				);
