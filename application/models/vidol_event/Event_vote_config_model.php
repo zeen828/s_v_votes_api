@@ -47,6 +47,7 @@ class Event_vote_config_model extends CI_Model {
 			$this->r_db->select ( $select );
 		}
 		$this->r_db->where ( 'status', '1' );
+		$this->r_db->where ( 'now() BETWEEN start_at AND end_at' );
 		$query = $this->r_db->get ( $this->table_name );
 		// echo $this->r_db->last_query();
 		return $query;
