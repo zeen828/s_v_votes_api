@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Votes extends CI_Controller {
 	private $data_debug;
 	private $data_result;
 	public function __construct() {
