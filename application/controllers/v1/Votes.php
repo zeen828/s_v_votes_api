@@ -54,9 +54,7 @@ class Votes extends MY_REST_Controller {
 			$data_cache['name_1'] = sprintf('event_vote_config_%d', $data_input ['config_id']);
 			$this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [$data_cache['name_1']] = $this->cache->memcached->get ( $data_cache['name_1'] );
-			print_r($data_cache);
-			if ( empty( $data_cache [$data_cache['name_1']] ) ) {
-				echo 'O';
+			if ($data_cache [$data_cache['name_1']] == false) {
 				// 防止array組合型態錯誤警告
 				$data_cache [$data_cache['name_1']] = array ();
 				//
@@ -67,14 +65,11 @@ class Votes extends MY_REST_Controller {
 				$db->order_by('group_no', 'ASC');
 				$db->order_by('sort', 'ASC');
 				$query = $db->get('event_vote_item_tbl');
-				echo $db->last_query();
 				if ($query->num_rows() > 0) {
 					foreach ($query->result() as $row) {
 						print_r($row);
 					}
 				}
-			}else{
-				echo 'X';
 			}
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
