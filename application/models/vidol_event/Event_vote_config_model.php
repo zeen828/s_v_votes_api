@@ -46,8 +46,7 @@ class Event_vote_config_model extends CI_Model {
 		if (! empty ( $select )) {
 			$this->r_db->select ( $select );
 		}
-		$this->r_db->where ( 'oa_status', '1' );
-		$this->r_db->order_by( 'oa_sort', 'ASC' );
+		$this->r_db->where ( 'status', '1' );
 		$query = $this->r_db->get ( $this->table_name );
 		// echo $this->r_db->last_query();
 		return $query;
