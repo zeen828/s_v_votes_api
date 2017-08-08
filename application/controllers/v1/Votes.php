@@ -51,35 +51,14 @@ class Votes extends MY_REST_Controller {
 				return;
 			}
 			// cache name key
-			$data_cache['name_1'] = sprintf('event_vote_config_%d', $data_input ['config_id']);
-			//$this->cache->memcached->delete ( $data_cache['name_1'] );
-			$data_cache [$data_cache['name_1']] = $this->cache->memcached->get ( $data_cache['name_1'] );
-			if ($data_cache [$data_cache['name_1']] == false) {
-				// 防止array組合型態錯誤警告
-				$data_cache [$data_cache['name_1']] = array ();
-				//
-				$db = $this->load->database('vidol_event_read', TRUE);
-				$db->where('vote_config_id', $data_input ['config_id']);
-				$db->where('status', '1');
-				$db->where('status', '1');
-				$db->order_by('group_no', 'ASC');
-				$db->order_by('sort', 'ASC');
-				$query = $db->get('event_vote_item_tbl');
-				if ($query->num_rows() > 0) {
-					foreach ($query->result() as $row) {
-						$this->data_result ['result'][] = array(
-							'id'=>$row->id,
-							'config'=>$row->vote_config_id,
-							'group'=>$row->group_no,
-							'title'=>$row->title,
-							'des'=>$row->des,
-							'img'=>$row->img_url,
-							'url'=>$row->click_url,
-							'proportion'=>$row->proportion,
-						);
-					}
-				}
+			$data_cache [ 'name' ] = sprintf('event_vote_%d', $data_input ['config_id']);
+			// $this->cache->memcached->delete ( $data_cache['name_1'] );
+			$data_cache [ $data_cache [ 'name' ] ] = $this->cache->memcached->get ( $data_cache [ 'name' ] );
+			if ($data_cache [$data_cache['name']] == false) {
+				$data_cache [ $data_cache [ 'name' ] ] = $this->cache->memcached->get ( $data_cache [ 'name' ] );
 			}
+			//
+			$this->data_result [ 'result' ] = $data_cache [ $data_cache [ 'name' ] ]
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算

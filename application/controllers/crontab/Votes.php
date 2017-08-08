@@ -47,8 +47,13 @@ class Votes extends CI_Controller {
 							print_r($row);
 						}
 					}
+					// 紀錄
+					$cache_name = sprintf('event_vote_%d', $value->id);
+					$this->cache->memcached->save ( $cache_name, $data, 3000 );
+					unset($value);
 				}
 			}
+			unset($query);
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
