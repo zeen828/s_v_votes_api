@@ -25,7 +25,7 @@ class Auth extends MY_REST_Controller {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
 			// 引入
-			$this->load->library ( 'vidol/Middle_layer_api' );
+			$this->load->library ( 'vidol/middle_layer_api' );
 			//$this->config->load ( 'ml_api' );
 			$this->config->load ( 'restful_status_code' );
 			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
@@ -67,7 +67,7 @@ class Auth extends MY_REST_Controller {
 				$this->response ( $this->data_result, 408 );
 				return;
 			}
-			$output = $this->Middle_layer_api->login_vidol($data_input ['username'], $data_input ['password']);
+			$output = $this->middle_layer_api->login_vidol($data_input ['username'], $data_input ['password']);
 /**
 			// 登入API
 			$ch = curl_init();
