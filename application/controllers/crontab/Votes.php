@@ -44,7 +44,7 @@ class Votes extends CI_Controller {
 					$query = $this->event_vote_item_model->get_query_by_configid_status_sort('*', $value->id);
 					if ($query->num_rows() > 0) {
 						foreach ($query->result() as $row) {
-							$value['row'][$row->id] = $row;
+							$value['row'][] = $row;
 						}
 					}
 				}
