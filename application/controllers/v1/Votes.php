@@ -55,7 +55,7 @@ class Votes extends MY_REST_Controller {
 			$this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [$data_cache['name_1']] = $this->cache->memcached->get ( $data_cache['name_1'] );
 			print_r($data_cache);
-			if ($data_cache [$data_cache['name_1']] == false) {
+			if ( empty( $data_cache [$data_cache['name_1']] ) ) {
 				// 防止array組合型態錯誤警告
 				$data_cache [$data_cache['name_1']] = array ();
 				//
