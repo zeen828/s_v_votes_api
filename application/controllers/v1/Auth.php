@@ -58,8 +58,8 @@ class Auth extends MY_REST_Controller {
 			$time_gap = $datetime - $from_datetime;
 			if($time_gap > 120){
 				// 預時120秒
-				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
-				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
+				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
+				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
 				// 必填錯誤標記
 				$this->benchmark->mark ( 'error_timeout' );
 				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_timeout' );
