@@ -42,6 +42,14 @@ class Votes extends MY_REST_Controller {
 			);
 			// 接收變數
 			$data_input ['config_id'] = $this->get ( 'config_id' );
+			// 必填檢查
+			if (empty ( $data_input ['config_id'] )) {
+				// 必填錯誤
+				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
+				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
+				$this->response ( $this->data_result, 416 );
+				return;
+			}
 			// cache name key
 			$data_cache['name_1'] = sprintf('event_vote_config_%d', $data_input ['config_id']);
 			$this->cache->memcached->delete ( $data_cache['name_1'] );
