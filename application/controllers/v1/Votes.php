@@ -67,7 +67,16 @@ class Votes extends MY_REST_Controller {
 				$query = $db->get('event_vote_item_tbl');
 				if ($query->num_rows() > 0) {
 					foreach ($query->result() as $row) {
-						$this->data_result ['result'][] = $row;
+						$this->data_result ['result'][] = array(
+							'id'=>$row->id,
+							'config'=>$row->vote_config_id,
+							'group'=>$row->group_no,
+							'title'=>$row->title,
+							'des'=>$row->des,
+							'img'=>$row->img_url,
+							'url'=>$row->click_url,
+							'proportion'=>$row->proportion,
+						);
 					}
 				}
 			}
