@@ -45,7 +45,7 @@ class Auth extends MY_REST_Controller {
 			$data_input ['facebook_token'] = $this->post ( 'facebook_token' );
 			$data_input ['expiration'] = $this->post ( 'expiration' );
 			// 必填檢查
-			if ( empty ( $data_input ['random'] ) || (empty ( $data_input ['username'] ) || empty ( $data_input ['password'] ) ) {
+			if ( empty ( $data_input ['random'] ) || empty ( $data_input ['username'] ) || empty ( $data_input ['password'] ) ) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
@@ -112,7 +112,7 @@ class Auth extends MY_REST_Controller {
 			$data_input ['facebook_token'] = $this->post ( 'facebook_token' );
 			$data_input ['expiration'] = $this->post ( 'expiration' );
 			// 必填檢查
-			if ( empty ( $data_input ['random'] ) || empty ( $data_input ['uid'] ) || (empty ( $data_input ['facebook_token'] ) || empty ( $data_input ['expiration'] ) ) {
+			if ( empty ( $data_input ['random'] ) || empty ( $data_input ['uid'] ) || empty ( $data_input ['facebook_token'] ) || empty ( $data_input ['expiration'] ) ) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
