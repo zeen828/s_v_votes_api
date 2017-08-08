@@ -53,7 +53,7 @@ class Votes extends CI_Controller {
 			if( count( $vote_config ) >= 1 ){
 				foreach ($vote_config as $key => $value) {
 					//
-					$cache_name = sprintf('event_vote_%d', $value->id);
+					$cache_name = sprintf('%s_event_vote_%d', ENVIRONMENT, $value->id);
 					$data_cache[$cache_name] = array(
 						'id'=>$value->id,
 						'title'=>$value->title,
