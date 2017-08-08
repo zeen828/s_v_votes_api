@@ -57,6 +57,13 @@ class SwaggerDoc extends CI_Controller {
 														"required" => TRUE 
 												),
 												array (
+														"name" => "random",
+														"description" => "隨機碼",
+														"in" => "formData",
+														"type" => "integer",
+														"required" => TRUE 
+												),
+												array (
 														"name" => "username",
 														"description" => "帳號",
 														"in" => "formData",

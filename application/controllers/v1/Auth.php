@@ -38,10 +38,11 @@ class Auth extends MY_REST_Controller {
 					'time' => 0 
 			);
 			// 接收變數
+			$data_input ['random'] = $this->post ( 'random' );
 			$data_input ['username'] = $this->post ( 'username' );
 			$data_input ['password'] = $this->post ( 'password' );
 			// 必填檢查
-			if ( empty ( $data_input ['username'] ) && empty ( $data_input ['password'] ) ) {
+			if ( empty ( $data_input ['random'] ) && empty ( $data_input ['username'] ) && empty ( $data_input ['password'] ) ) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
@@ -51,6 +52,9 @@ class Auth extends MY_REST_Controller {
 				$this->response ( $this->data_result, 416 );
 				return;
 			}
+			// 時間檢查
+			$datetime = time();
+			$this->data_result ['result'] = $datetime;
 			// 登入API
 			$ch = curl_init();
 			$curl_url = sprintf('http://%s/v1/oauth/token', $this->config->item ( 'ml_api_domain' ));
