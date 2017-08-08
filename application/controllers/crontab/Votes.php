@@ -55,7 +55,16 @@ class Votes extends CI_Controller {
 					if ($query->num_rows() > 0) {
 						foreach ($query->result() as $row) {
 							print_r($row);
-							$data_cache[$cache_name]['item'][] = $row;
+							$data_cache[$cache_name]['item'][] = array(
+								'id'=>$row->id,
+								'group'=>$row->group_no,
+								'sort'=>$row->sort,
+								'title'=>$row->title,
+								'des'=>$row->des,
+								'img'=>$row->img_url,
+								'url'=>$row->click_url,
+								'proportion'=>$row->proportion,
+							);
 							unset($row);
 						}
 					}
