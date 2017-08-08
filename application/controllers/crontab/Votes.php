@@ -24,7 +24,7 @@ class Votes extends CI_Controller {
 	public function statistics()
 	{
 	}
-	// 統計
+	// 建立暫存
 	public function cached()
 	{
 		try {
@@ -44,7 +44,6 @@ class Votes extends CI_Controller {
 			$query = $this->event_vote_config_model->get_query_by_status_at('*');
 			if ($query->num_rows() > 0) {
 				foreach ($query->result() as $row) {
-					print_r($row);
 					$vote_config[$row->id] = $row;
 					unset($row);
 				}
@@ -63,7 +62,6 @@ class Votes extends CI_Controller {
 					$query = $this->event_vote_item_model->get_query_by_configid_status_sort('*', $value->id);
 					if ($query->num_rows() > 0) {
 						foreach ($query->result() as $row) {
-							print_r($row);
 							$data_cache[$cache_name]['item'][] = array(
 								'id'=>$row->id,
 								'group'=>$row->group_no,
@@ -78,24 +76,18 @@ class Votes extends CI_Controller {
 						}
 					}
 					// 紀錄
-					print_r($cache_name);
-					print_r($data_cache[$cache_name]);
 					$status = $this->cache->memcached->save ( $cache_name, $data_cache[$cache_name], 3000 );
-					print_r($status);
 					$info = $this->cache->memcached->cache_info ();
-					print_r($info);
 					unset($query);
 					unset($cache_name);
 					unset($value);
 				}
 			}
 			unset($query);
-			print_r($data_cache);
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
 			$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'code_end' );
-			print_r($this->data_result);
 		} catch ( Exception $e ) {
 			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
 		}
