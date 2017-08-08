@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * crontab 指令
+ * crontab -l 查詢任務
+ * crontab -e 編輯任務
+ * /etc/init.d/cron restart 重啟
+ */
 class Votes extends CI_Controller {
 	private $data_debug;
 	private $data_result;
@@ -17,6 +22,10 @@ class Votes extends CI_Controller {
 	}
 	// 統計
 	public function statistics()
+	{
+	}
+	// 統計
+	public function cached()
 	{
 		try {
 			// 開始時間標記
