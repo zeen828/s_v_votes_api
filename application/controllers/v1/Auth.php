@@ -52,8 +52,20 @@ class Auth extends MY_REST_Controller {
 				$this->response ( $this->data_result, 416 );
 				return;
 			}
-			// 時間檢查
-			$datetime = time();
+			// 時間檢查(不可超過120秒)
+			$datetime = substr( time() , 0 , 10 );
+			$from_datetime = substr( $data_input ['random'] , 0 , 10 );
+			$time_gap = $datetime - $from_datetime;
+			if($time_gap > 120){
+				// 預時120秒
+				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
+				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
+				// 必填錯誤標記
+				$this->benchmark->mark ( 'error_timeout' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_timeout' );
+				$this->response ( $this->data_result, 408 );
+				return;
+			}
 			$this->data_result ['input'] = $data_input;
 			$this->data_result ['random'] = $datetime;
 			// 登入API

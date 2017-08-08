@@ -108,6 +108,9 @@ class SwaggerDoc extends CI_Controller {
 												"403" => array (
 														"description" => "token未授權" 
 												),
+												"408" => array (
+														"description" => "請求超時" 
+												),
 												"416" => array (
 														"description" => "傳遞資料錯誤" 
 												) 
