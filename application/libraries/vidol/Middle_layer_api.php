@@ -9,8 +9,6 @@ class Middle_layer_api
     public function __construct ()
     {
         $this->CI = & get_instance();
-        $this->CI->config->load('vidol');
-        $this->set_status('production');
     }
     public function debug ()
     {
@@ -37,8 +35,8 @@ class Middle_layer_api
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $output = curl_exec($ch);
         curl_close($ch);
-        $output = json_decode($output);
-        return $output;
+        $this->data_result = json_decode($output);
+        return $this->data_result;
     }
     public function login_facebook ($uid, $facebook_token, $expiration)
     {
