@@ -42,12 +42,14 @@ class Event_vote_item_model extends CI_Model {
 		}
 		return false;
 	}
-	public function get_query_by_status($select) {
+	public function get_query_by_configid_status_sort($select, $config_id) {
 		if (! empty ( $select )) {
 			$this->r_db->select ( $select );
 		}
-		$this->r_db->where ( 'oa_status', '1' );
-		$this->r_db->order_by( 'oa_sort', 'ASC' );
+		$this->r_db->where ( 'config_id', $config_id );
+		$this->r_db->where ( 'status', '1' );
+		$this->r_db->order_by( 'group_no', 'ASC' );
+		$this->r_db->order_by( 'sort', 'ASC' );
 		$query = $this->r_db->get ( $this->table_name );
 		// echo $this->r_db->last_query();
 		return $query;

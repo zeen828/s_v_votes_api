@@ -42,7 +42,7 @@ class Event_vote_config_model extends CI_Model {
 		}
 		return false;
 	}
-	public function get_query_by_status($select) {
+	public function get_query_by_status_at($select) {
 		if (! empty ( $select )) {
 			$this->r_db->select ( $select );
 		}

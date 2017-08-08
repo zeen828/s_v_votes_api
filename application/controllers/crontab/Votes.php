@@ -22,19 +22,31 @@ class Votes extends CI_Controller {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
 			// 引入
-			$this->config->load ( 'restful_status_code' );
 			$this->load->model ( 'vidol_event/event_vote_config_model' );
 			$this->load->model ( 'vidol_event/event_vote_item_model' );
-			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
 			$this->load->driver ( 'cache', array (
 					'adapter' => 'memcached',
 					'backup' => 'dummy' 
 			) );
-			//取得所有活動
-			$query = $this->event_vote_config_model->get_query_by_status('*');
+			// 變數
+			$vote_config = array ();
+			//取得所有活動設定
+			$query = $this->event_vote_config_model->get_query_by_status_at('*');
 			if ($query->num_rows() > 0) {
 				foreach ($query->result() as $row) {
-					print_r($row);
+					$vote_config[$row->id] = $row;
+					unset($row);
+				}
+			}
+			unset($query);
+			if( count( $vote_config ) >= 1 ){
+				foreach ($vote_config as $key => $value) {
+					$query = $this->event_vote_item_model->get_query_by_configid_status_sort('*', $value->id);
+					if ($query->num_rows() > 0) {
+						foreach ($query->result() as $row) {
+							$value['row'][$row->id] = $row;
+						}
+					}
 				}
 			}
 			// 結束時間標記
