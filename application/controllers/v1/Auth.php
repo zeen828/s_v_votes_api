@@ -25,7 +25,8 @@ class Auth extends MY_REST_Controller {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
 			// 引入
-			$this->config->load ( 'ml_api' );
+			$this->load->library ( 'Middle_layer_api' );
+			//$this->config->load ( 'ml_api' );
 			$this->config->load ( 'restful_status_code' );
 			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
 			// 變數
@@ -66,8 +67,8 @@ class Auth extends MY_REST_Controller {
 				$this->response ( $this->data_result, 408 );
 				return;
 			}
-			$this->data_result ['input'] = $data_input;
-			$this->data_result ['random'] = $datetime;
+			$output = $this->Middle_layer_api->login_vidol($data_input ['username'], $data_input ['password']);
+/**
 			// 登入API
 			$ch = curl_init();
 			$curl_url = sprintf('http://%s/v1/oauth/token', $this->config->item ( 'ml_api_domain' ));
@@ -88,6 +89,7 @@ class Auth extends MY_REST_Controller {
 			$output = curl_exec($ch);
 			curl_close($ch);
 			$output = json_decode($output);
+/**/
 			$this->data_result ['result'] = $output;
 			if(isset($output->message) && !empty($output->message)){
 				// API有錯誤訊息
