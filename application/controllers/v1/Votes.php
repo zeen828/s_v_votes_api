@@ -67,6 +67,7 @@ class Votes extends MY_REST_Controller {
 				$db->order_by('group_no', 'ASC');
 				$db->order_by('sort', 'ASC');
 				$query = $db->get('event_vote_item_tbl');
+				echo $db->last_query();
 				if ($query->num_rows() > 0) {
 					foreach ($query->result() as $row) {
 						print_r($row);
