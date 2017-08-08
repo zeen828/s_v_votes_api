@@ -54,7 +54,8 @@ class Auth extends MY_REST_Controller {
 			}
 			// 時間檢查
 			$datetime = time();
-			$this->data_result ['result'] = $datetime;
+			$this->data_result ['input'] = $data_input;
+			$this->data_result ['random'] = $datetime;
 			// 登入API
 			$ch = curl_init();
 			$curl_url = sprintf('http://%s/v1/oauth/token', $this->config->item ( 'ml_api_domain' ));
