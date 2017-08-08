@@ -140,15 +140,22 @@ class SwaggerDoc extends CI_Controller {
 														"required" => TRUE 
 												),
 												array (
-														"name" => "username",
-														"description" => "帳號",
+														"name" => "uid",
+														"description" => "Uid",
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
 												),
 												array (
-														"name" => "password",
-														"description" => "密碼",
+														"name" => "facebook_token",
+														"description" => "Facebook Token",
+														"in" => "formData",
+														"type" => "string",
+														"required" => TRUE 
+												),
+												array (
+														"name" => "expiration",
+														"description" => "expiration",
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 

@@ -41,9 +41,6 @@ class Auth extends MY_REST_Controller {
 			$data_input ['random'] = $this->post ( 'random' );
 			$data_input ['username'] = $this->post ( 'username' );
 			$data_input ['password'] = $this->post ( 'password' );
-			$data_input ['uid'] = $this->post ( 'uid' );
-			$data_input ['facebook_token'] = $this->post ( 'facebook_token' );
-			$data_input ['expiration'] = $this->post ( 'expiration' );
 			// 必填檢查
 			if ( empty ( $data_input ['random'] ) || empty ( $data_input ['username'] ) || empty ( $data_input ['password'] ) ) {
 				// 必填錯誤
