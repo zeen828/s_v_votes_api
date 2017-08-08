@@ -16,7 +16,6 @@ class Votes extends CI_Controller {
 		$this->output->enable_profiler(TRUE);
 	}
 	public function __destruct() {
-		parent::__destruct ();
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
