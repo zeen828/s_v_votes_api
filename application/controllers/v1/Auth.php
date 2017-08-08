@@ -41,7 +41,7 @@ class Auth extends MY_REST_Controller {
 			$data_input ['username'] = $this->post ( 'username' );
 			$data_input ['password'] = $this->post ( 'password' );
 			// 必填檢查
-			if (empty ( $data_input ['username'] ) && empty ( $data_input ['password'] )) {
+			if ( empty ( $data_input ['username'] ) && empty ( $data_input ['password'] ) ) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );

@@ -56,6 +56,7 @@ class Votes extends MY_REST_Controller {
 			$data_cache [$data_cache['name_1']] = $this->cache->memcached->get ( $data_cache['name_1'] );
 			print_r($data_cache);
 			if ( empty( $data_cache [$data_cache['name_1']] ) ) {
+				echo 'O';
 				// 防止array組合型態錯誤警告
 				$data_cache [$data_cache['name_1']] = array ();
 				//
@@ -71,6 +72,8 @@ class Votes extends MY_REST_Controller {
 						print_r($row);
 					}
 				}
+			}else{
+				echo 'X';
 			}
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
