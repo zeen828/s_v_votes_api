@@ -46,7 +46,7 @@ class Votes extends CI_Controller {
 					//
 					$cache_name = sprintf('event_vote_%d', $value->id);
 					$data_cache[$cache_name] = array(
-						'id'=>$value_id,
+						'id'=>$value->id,
 						'title'=>$value->title,
 						'des'=>$value->des,
 						'item'=>array(),
