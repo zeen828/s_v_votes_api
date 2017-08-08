@@ -30,10 +30,12 @@ class Votes extends CI_Controller {
 			) );
 			// 變數
 			$vote_config = array ();
+			$data_cache = array ();
 			//取得所有活動設定
 			$query = $this->event_vote_config_model->get_query_by_status_at('*');
 			if ($query->num_rows() > 0) {
 				foreach ($query->result() as $row) {
+					print_r($row);
 					$vote_config[$row->id] = $row;
 					unset($row);
 				}
@@ -41,6 +43,13 @@ class Votes extends CI_Controller {
 			unset($query);
 			if( count( $vote_config ) >= 1 ){
 				foreach ($vote_config as $key => $value) {
+					//
+					$cache_name = sprintf('event_vote_%d', $value->id);
+					$data_cache[$cache_name] = array(
+						''=>$value,
+						''=>$value,
+						''=>$value,
+					);
 					$query = $this->event_vote_item_model->get_query_by_configid_status_sort('*', $value->id);
 					if ($query->num_rows() > 0) {
 						foreach ($query->result() as $row) {
@@ -48,8 +57,8 @@ class Votes extends CI_Controller {
 						}
 					}
 					// 紀錄
-					$cache_name = sprintf('event_vote_%d', $value->id);
 					$this->cache->memcached->save ( $cache_name, $data, 3000 );
+					unset($cache_name);
 					unset($value);
 				}
 			}
