@@ -118,7 +118,7 @@ class Votes extends MY_REST_Controller {
 				return;
 			}
 			// cache name key
-			$data_cache [ 'name' ] = sprintf('%s_event_vote_%d', ENVIRONMENT, $user->uid );
+			$data_cache [ 'name' ] = sprintf('%s_event_vote_%s', ENVIRONMENT, $user->uid );
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [ $data_cache [ 'name' ] ] = $this->cache->memcached->get ( $data_cache [ 'name' ] );
 			// debug
