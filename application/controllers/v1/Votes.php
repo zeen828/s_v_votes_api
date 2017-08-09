@@ -102,16 +102,15 @@ class Votes extends MY_REST_Controller {
 			}
 			// 取得token轉換資料
 			$user = $this->token_model->get_user_row_by_token( 'identities.*', $data_input ['token'] );
-			print_r($user);
-			$identities = $this->token_model->get_oauth_access_tokens_by_token('resource_owner_id', $data_input ['token']);
-			print_r($identities);
-			if ($identities == false) {
-
-			}
-			$user = $this->token_model->get_identities_by_pk('*', $identities->resource_owner_id);
-			print_r($user);
 			if ($user == false) {
-
+				// 會員檢查錯誤
+				$this->data_result ['message'] = $this->lang->line ( 'permissions_middle_layer_token_error' );
+				$this->data_result ['code'] = $this->config->item ( 'permissions_middle_layer_token_error' );
+				// 會員檢查錯誤標記
+				$this->benchmark->mark ( 'error_token' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_token' );
+				$this->response ( $this->data_result, 416 );
+				return;
 			}
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
