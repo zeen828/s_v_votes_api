@@ -129,8 +129,9 @@ class Votes extends MY_REST_Controller {
 				return;
 			}
 			// 有無過期
-/*
 			$date_config = $data_cache [$data_cache ['config_name']];
+			print_r($date_config);
+/*
 			if ( $data_input ['now_datetime'] < $date_config->start || $data_input ['now_datetime'] > $date_config->end ) {
 				// 活動尚未開始
 				$this->data_result ['message'] = $this->lang->line ( 'permissions_error' );
