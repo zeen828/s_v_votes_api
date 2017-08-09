@@ -130,9 +130,7 @@ class Votes extends MY_REST_Controller {
 			}
 			// 有無過期
 			$date_config = $data_cache [$data_cache ['config_name']];
-			print_r($date_config);
-/*
-			if ( $data_input ['now_datetime'] < $date_config->start || $data_input ['now_datetime'] > $date_config->end ) {
+			if ( $data_input ['now_datetime'] < $date_config['start'] || $data_input ['now_datetime'] > $date_config['end'] ) {
 				// 活動尚未開始
 				$this->data_result ['message'] = $this->lang->line ( 'permissions_error' );
 				$this->data_result ['code'] = $this->config->item ( 'permissions_error' );
@@ -142,7 +140,6 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 405 );
 				return;
 			}
-/**/
 			// 取得token轉換user資料
 			$date_user = $this->token_model->get_user_row_by_token ( 'identities.*', $data_input ['token'] );
 			if ($date_user == false) {
