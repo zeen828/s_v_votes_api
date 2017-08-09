@@ -117,13 +117,14 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
-			// debug
-			$this->data_result ['input'] = $data_input;
-			$this->data_result ['cache'] = $data_cache;
 			// cache name key
 			$data_cache [ 'name' ] = sprintf('%s_event_vote_%d', ENVIRONMENT, $user->uid );
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [ $data_cache [ 'name' ] ] = $this->cache->memcached->get ( $data_cache [ 'name' ] );
+			// debug
+			$this->data_result ['input'] = $data_input;
+			$this->data_result ['cache'] = $data_cache;
+			// debug
 			if ($data_cache [$data_cache['name']] != false && isset( $data_cache [$data_cache['name']][$data_input ['date']])) {
 				// 投票過
 				$this->data_result ['message'] = $this->lang->line ( 'permissions_error' );
