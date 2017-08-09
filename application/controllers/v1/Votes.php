@@ -85,10 +85,11 @@ class Votes extends MY_REST_Controller {
 					'time' => 0 
 			);
 			// 接收變數
-			$data_input ['username'] = $this->post ( 'username' );
-			$data_input ['password'] = $this->post ( 'password' );
+			$data_input ['token'] = $this->post ( 'token' );
+			$data_input ['config_id'] = $this->post ( 'config_id' );
+			$data_input ['item_id'] = $this->post ( 'item_id' );
 			// 必填檢查
-			if (empty ( $data_input ['username'] ) && empty ( $data_input ['password'] )) {
+			if ( empty ( $data_input ['token'] ) || empty ( $data_input ['config_id'] ) || empty ( $data_input ['item_id'] ) ) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );

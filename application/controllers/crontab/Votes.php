@@ -53,7 +53,7 @@ class Votes extends CI_Controller {
 					//
 					$cache_name = sprintf('%s_event_vote_%d', ENVIRONMENT, $value->id);
 					$data_cache[$cache_name] = array(
-						'id'=>$value->id,
+						'config_id'=>$value->id,
 						'title'=>$value->title,
 						'des'=>$value->des,
 						'item'=>array(),
@@ -62,8 +62,8 @@ class Votes extends CI_Controller {
 					if ($query->num_rows() > 0) {
 						foreach ($query->result() as $row) {
 							$data_cache[$cache_name]['item'][] = array(
-								'id'=>$row->id,
-								'group'=>$row->group_no,
+								'item_id'=>$row->id,
+								'group_no'=>$row->group_no,
 								'sort'=>$row->sort,
 								'title'=>$row->title,
 								'des'=>$row->des,
