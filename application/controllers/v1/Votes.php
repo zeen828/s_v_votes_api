@@ -117,7 +117,9 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
-
+			// debug
+			$this->data_result ['input'] = $data_input;
+			$this->data_result ['cache'] = $data_cache;
 			// cache name key
 			$data_cache [ 'name' ] = sprintf('%s_event_vote_%d', ENVIRONMENT, $user->uid );
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
@@ -136,9 +138,6 @@ class Votes extends MY_REST_Controller {
 			// 紀錄
 			$status = $this->cache->memcached->save ( $data_cache [ 'name' ], $data_cache [$data_cache['name']], 90000 );//25小時90000秒
 			$info = $this->cache->memcached->cache_info ();
-			// debug
-			$this->data_result ['input'] = $data_input;
-			$this->data_result ['cache'] = $data_cache;
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
