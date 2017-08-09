@@ -57,6 +57,8 @@ class Votes extends CI_Controller {
 						'title'=>$value->title,
 						'des'=>$value->des,
 						'item'=>array(),
+						'start'=>$value->start_at,
+						'end'=>$value->end_at,
 					);
 					$query = $this->event_vote_item_model->get_query_by_configid_status_sort('*', $value->id);
 					if ($query->num_rows() > 0) {

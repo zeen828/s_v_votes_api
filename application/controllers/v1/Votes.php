@@ -137,7 +137,7 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 405 );
 				return;
 			}
-			//
+			// 投票資料
 			$data_post = array(
 				'config_id'=>$data_input ['config_id'],
 				'item_id'=>$data_input ['item_id'],
@@ -151,9 +151,7 @@ class Votes extends MY_REST_Controller {
 				'minute_at'=>date('i'),
 				'created_at'=>date('Y-m-d h:i:s'),
 			);
-			$ststus = $this->event_vote_select_model->insert_data( $data_post );
-			$data_cache [$data_cache['name']][$data_input ['date']] = $ststus;
-			// $data_cache [$data_cache['name']][$data_input ['date']] = true;
+			$data_cache [$data_cache['name']][$data_input ['date']] = $this->event_vote_select_model->insert_data( $data_post );
 			// 紀錄
 			$status = $this->cache->memcached->save ( $data_cache [ 'name' ], $data_cache [$data_cache['name']], 90000 );//25小時90000秒
 			$info = $this->cache->memcached->cache_info ();
