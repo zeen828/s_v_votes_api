@@ -38,9 +38,14 @@ class Auth extends MY_REST_Controller {
 					'time' => 0 
 			);
 			// 接收變數
+			$data_input ['debug'] = $this->post ( 'debug' );
 			$data_input ['random'] = $this->post ( 'random' );
 			$data_input ['username'] = $this->post ( 'username' );
 			$data_input ['password'] = $this->post ( 'password' );
+			if ($data_input ['debug'] == 'debug') {
+				$this->data_result ['debug'] ['input'] = &$data_input;
+				$this->data_result ['debug'] ['cache'] = &$data_cache;
+			}
 			// 必填檢查
 			if (empty ( $data_input ['random'] ) || empty ( $data_input ['username'] ) || empty ( $data_input ['password'] )) {
 				// 必填錯誤
@@ -104,10 +109,17 @@ class Auth extends MY_REST_Controller {
 					'time' => 0 
 			);
 			// 接收變數
+			$data_input ['debug'] = $this->post ( 'debug' );
 			$data_input ['random'] = $this->post ( 'random' );
 			$data_input ['uid'] = $this->post ( 'uid' );
 			$data_input ['facebook_token'] = $this->post ( 'facebook_token' );
 			$data_input ['expiration'] = $this->post ( 'expiration' );
+			if ($data_input ['debug'] == 'debug') {
+				$this->data_result ['debug'] ['input'] = &$data_input;
+				$this->data_result ['debug'] ['cache'] = &$data_cache;
+				$this->data_result ['debug'] ['config'] = &$date_config;
+				$this->data_result ['debug'] ['user'] = &$date_user;
+			}
 			// 必填檢查
 			if (empty ( $data_input ['random'] ) || empty ( $data_input ['uid'] ) || empty ( $data_input ['facebook_token'] ) || empty ( $data_input ['expiration'] )) {
 				// 必填錯誤

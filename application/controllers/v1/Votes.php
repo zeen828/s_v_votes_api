@@ -41,7 +41,14 @@ class Votes extends MY_REST_Controller {
 					'time' => 0 
 			);
 			// 接收變數
+			$data_input ['debug'] = $this->get ( 'debug' );
 			$data_input ['config_id'] = $this->get ( 'config_id' );
+			if ($data_input ['debug'] == 'debug') {
+				$this->data_result ['debug'] ['input'] = &$data_input;
+				$this->data_result ['debug'] ['cache'] = &$data_cache;
+				$this->data_result ['debug'] ['config'] = &$date_config;
+				$this->data_result ['debug'] ['user'] = &$date_user;
+			}
 			// 必填檢查
 			if (empty ( $data_input ['config_id'] )) {
 				// 必填錯誤
@@ -92,20 +99,22 @@ class Votes extends MY_REST_Controller {
 					'message' => '',
 					'time' => 0 
 			);
-			if ($this->data_debug == true) {
+			// 接收變數
+			$data_input ['date'] = date ( 'Y-m-d' );
+			$data_input ['now_datetime'] = date ( 'Y-m-d H:i:s' );
+			$data_input ['debug'] = $this->post ( 'debug' );
+			$data_input ['random'] = $this->post ( 'random' );
+			$data_input ['token'] = $this->post ( 'token' );
+			$data_input ['config_id'] = $this->post ( 'config_id' );
+			$data_input ['item_id'] = $this->post ( 'item_id' );
+			if ($data_input ['debug'] == 'debug') {
 				$this->data_result ['debug'] ['input'] = &$data_input;
 				$this->data_result ['debug'] ['cache'] = &$data_cache;
 				$this->data_result ['debug'] ['config'] = &$date_config;
 				$this->data_result ['debug'] ['user'] = &$date_user;
 			}
-			// 接收變數
-			$data_input ['date'] = date ( 'Y-m-d' );
-			$data_input ['now_datetime'] = date ( 'Y-m-d H:i:s' );
-			$data_input ['token'] = $this->post ( 'token' );
-			$data_input ['config_id'] = $this->post ( 'config_id' );
-			$data_input ['item_id'] = $this->post ( 'item_id' );
 			// 必填檢查
-			if (empty ( $data_input ['token'] ) || empty ( $data_input ['config_id'] ) || empty ( $data_input ['item_id'] )) {
+			if (empty ( $data_input ['random'] ) || empty ( $data_input ['token'] ) || empty ( $data_input ['config_id'] ) || empty ( $data_input ['item_id'] )) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
@@ -113,6 +122,20 @@ class Votes extends MY_REST_Controller {
 				$this->benchmark->mark ( 'error_required' );
 				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_required' );
 				$this->response ( $this->data_result, 416 );
+				return;
+			}
+			// 時間檢查(不可超過120秒)
+			$datetime = substr ( time (), 0, 10 );
+			$from_datetime = substr ( $data_input ['random'], 0, 10 );
+			$time_gap = $datetime - $from_datetime;
+			if ($time_gap > 120) {
+				// 預時120秒
+				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
+				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
+				// 必填錯誤標記
+				$this->benchmark->mark ( 'error_timeout' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_timeout' );
+				$this->response ( $this->data_result, 408 );
 				return;
 			}
 			// 有無投票活動設定

@@ -76,6 +76,15 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
+												),
+												array (
+														"name" => "debug",
+														"description" => "除錯用多列印出取得資料變數",
+														"in" => "formData",
+														"type" => "string",
+														"enum" => array (
+																'debug' 
+														) 
 												) 
 										),
 										"responses" => array (
@@ -159,6 +168,15 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
+												),
+												array (
+														"name" => "debug",
+														"description" => "除錯用多列印出取得資料變數",
+														"in" => "formData",
+														"type" => "string",
+														"enum" => array (
+																'debug' 
+														) 
 												) 
 										),
 										"responses" => array (
@@ -221,6 +239,15 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "query",
 														"type" => "integer",
 														"required" => TRUE 
+												),
+												array (
+														"name" => "debug",
+														"description" => "除錯用多列印出取得資料變數",
+														"in" => "query",
+														"type" => "string",
+														"enum" => array (
+																'debug' 
+														) 
 												) 
 										),
 										"responses" => array (
@@ -296,6 +323,15 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
+												),
+												array (
+														"name" => "debug",
+														"description" => "除錯用多列印出取得資料變數",
+														"in" => "formData",
+														"type" => "string",
+														"enum" => array (
+																'debug' 
+														) 
 												) 
 										),
 										"responses" => array (

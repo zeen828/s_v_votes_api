@@ -41,7 +41,6 @@ class Votes extends CI_Controller {
 			$query = $this->event_vote_config_model->get_query_by_status_at ( '*' );
 			if ($query->num_rows () > 0) {
 				foreach ( $query->result () as $row ) {
-					print_r ( $row );
 					$vote_config [$row->id] = $row;
 					unset ( $row );
 				}
@@ -49,7 +48,6 @@ class Votes extends CI_Controller {
 			unset ( $query );
 			if (count ( $vote_config ) >= 1) {
 				foreach ( $vote_config as $key => $value ) {
-					print_r ( $value );
 					//
 					$cache_name = sprintf ( '%s_event_vote_%d', ENVIRONMENT, $value->id );
 					$data_cache [$cache_name] = array (
@@ -63,7 +61,6 @@ class Votes extends CI_Controller {
 					$query = $this->event_vote_item_model->get_query_by_configid_status_sort ( '*', $value->id );
 					if ($query->num_rows () > 0) {
 						foreach ( $query->result () as $row ) {
-							print_r ( $row );
 							$data_cache [$cache_name] ['item'] [] = array (
 									'item_id' => $row->id,
 									'group_no' => $row->group_no,
@@ -77,17 +74,21 @@ class Votes extends CI_Controller {
 							unset ( $row );
 						}
 					}
-					print_r ( $data_cache [$cache_name] );
 					// 紀錄
 					$status = $this->cache->memcached->save ( $cache_name, $data_cache [$cache_name], 90000 );
+					print_r ( $data_cache [$cache_name] );
 					$info = $this->cache->memcached->cache_info ();
 					print_r ( $info );
+					unset ( $info );
+					unset ( $status );
 					unset ( $query );
 					unset ( $cache_name );
 					unset ( $value );
 				}
 			}
 			unset ( $query );
+			unset ( $data_cache );
+			unset ( $vote_config );
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
