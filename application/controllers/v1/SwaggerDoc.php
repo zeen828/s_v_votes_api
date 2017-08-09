@@ -58,7 +58,7 @@ class SwaggerDoc extends CI_Controller {
 												),
 												array (
 														"name" => "random",
-														"description" => "隨機碼",
+														"description" => "隨機碼(JQ:$.now();)",
 														"in" => "formData",
 														"type" => "integer",
 														"required" => TRUE 
@@ -134,7 +134,7 @@ class SwaggerDoc extends CI_Controller {
 												),
 												array (
 														"name" => "random",
-														"description" => "隨機碼",
+														"description" => "隨機碼(JQ:$.now();)",
 														"in" => "formData",
 														"type" => "integer",
 														"required" => TRUE 
@@ -270,15 +270,29 @@ class SwaggerDoc extends CI_Controller {
 														"required" => TRUE 
 												),
 												array (
-														"name" => "username",
-														"description" => "帳號",
+														"name" => "random",
+														"description" => "隨機碼(JQ:$.now();)",
+														"in" => "formData",
+														"type" => "integer",
+														"required" => TRUE 
+												),
+												array (
+														"name" => "token",
+														"description" => "token",
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
 												),
 												array (
-														"name" => "password",
-														"description" => "密碼",
+														"name" => "config_id",
+														"description" => "設定檔ID",
+														"in" => "formData",
+														"type" => "string",
+														"required" => TRUE 
+												),
+												array (
+														"name" => "item_id",
+														"description" => "項目ID",
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 

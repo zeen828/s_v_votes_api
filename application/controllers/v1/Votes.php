@@ -74,6 +74,7 @@ class Votes extends MY_REST_Controller {
 			$this->benchmark->mark ( 'code_start' );
 			// 引入
 			$this->config->load ( 'restful_status_code' );
+			$this->load->model ( 'postgre/token_model' );
 			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
 			// 變數
 			$data_input = array ();
@@ -89,7 +90,7 @@ class Votes extends MY_REST_Controller {
 			$data_input ['config_id'] = $this->post ( 'config_id' );
 			$data_input ['item_id'] = $this->post ( 'item_id' );
 			// 必填檢查
-			if ( empty ( $data_input ['token'] ) || empty ( $data_input ['config_id'] ) || empty ( $data_input ['item_id'] ) ) {
+			if ( empty ( $data_input ['random'] ) || empty ( $data_input ['token'] ) || empty ( $data_input ['config_id'] ) || empty ( $data_input ['item_id'] ) ) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
@@ -99,6 +100,10 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 416 );
 				return;
 			}
+			// 取得token轉換資料
+			$token = $this->token_model->get_oauth_access_tokens_by_token_or_refreshtoken('*', $data_input ['token'], null);
+			print_r($token);
+
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
