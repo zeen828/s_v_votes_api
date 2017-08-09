@@ -120,24 +120,24 @@ class Votes extends MY_REST_Controller {
 			$data_cache [$data_cache ['config_name']] = $this->cache->memcached->get ( $data_cache ['config_name'] );
 			if ($data_cache [$data_cache ['config_name']] == false) {
 				// 活動尚未開始
-				$this->data_result ['message'] = $this->lang->line ( 'permissions_error' );
-				$this->data_result ['code'] = $this->config->item ( 'permissions_error' );
+				$this->data_result ['message'] = $this->lang->line ( 'system_error' );
+				$this->data_result ['code'] = $this->config->item ( 'system_error' );
 				// 活動尚未開始標記
-				$this->benchmark->mark ( 'error_token' );
-				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_token' );
-				$this->response ( $this->data_result, 405 );
+				$this->benchmark->mark ( 'error_system' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_system' );
+				$this->response ( $this->data_result, 401 );
 				return;
 			}
 			// 有無過期
 			$date_config = $data_cache [$data_cache ['config_name']];
-			if ( $data_input ['now_datetime'] < $date_config['start'] || $data_input ['now_datetime'] > $date_config['end'] ) {
+			if ($data_input ['now_datetime'] < $date_config ['start'] || $data_input ['now_datetime'] > $date_config ['end']) {
 				// 活動尚未開始
-				$this->data_result ['message'] = $this->lang->line ( 'permissions_error' );
-				$this->data_result ['code'] = $this->config->item ( 'permissions_error' );
+				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
+				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
 				// 活動尚未開始標記
-				$this->benchmark->mark ( 'error_token' );
-				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_token' );
-				$this->response ( $this->data_result, 405 );
+				$this->benchmark->mark ( 'error_timeout' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_timeout' );
+				$this->response ( $this->data_result, 401 );
 				return;
 			}
 			// 取得token轉換user資料
