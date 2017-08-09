@@ -28,6 +28,14 @@ class Votes extends MY_REST_Controller {
 		{
 		        echo $table, "<br/>\n";
 		}
+
+		$this->db->where ( 'token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZGVudGl0eSI6eyJpZCI6NjIxMjM1LCJ1aWQiOiJ2UVVwMnNrcWNGIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJhcHBsaWNhdGlvbl9pZCI6MSwiZXhwaXJlc19hdCI6MTUwMjQyMDc0NywicmFuZF9rZXkiOiI4YTJlNDBmOWYwMmVmNjhiYThhYzQxOWIyNmYwNDE1NCJ9.afK2HdCA3TuSXAdTCBSNIvXT7TIdyFFoF6onToco0ZuPCHchl1Rmb3DHDVnHGeyCqf3sYr4m7ukL6lV40gN1DA' );
+		$query = $this->db->get ( 'oauth_access_tokens' );
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				print_r($row);
+			}
+		}
 	}
 	public function vote_get() {
 		try {
