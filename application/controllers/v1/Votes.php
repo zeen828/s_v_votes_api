@@ -20,6 +20,15 @@ class Votes extends MY_REST_Controller {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
+	public function test_get() {
+		$this->output->enable_profiler(TRUE);
+		$this->load->database ( 'postgre_read' );
+		$tables = $this->db->list_tables();
+		foreach ($tables as $table)
+		{
+		        echo $table;
+		}
+	}
 	public function vote_get() {
 		try {
 			// 開始時間標記
