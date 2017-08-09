@@ -119,12 +119,12 @@ class Votes extends MY_REST_Controller {
 			$data_cache ['config_name'] = sprintf ( '%s_event_vote_%d', ENVIRONMENT, $data_input ['config_id'] );
 			$data_cache [$data_cache ['config_name']] = $this->cache->memcached->get ( $data_cache ['config_name'] );
 			if ($data_cache [$data_cache ['config_name']] == false) {
-				// 活動尚未開始
-				$this->data_result ['message'] = $this->lang->line ( 'system_error' );
-				$this->data_result ['code'] = $this->config->item ( 'system_error' );
-				// 活動尚未開始標記
-				$this->benchmark->mark ( 'error_system' );
-				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_system' );
+				// 無活動
+				$this->data_result ['message'] = $this->lang->line ( 'system_not_config' );
+				$this->data_result ['code'] = $this->config->item ( 'system_not_config' );
+				// 無活動標記
+				$this->benchmark->mark ( 'error_not_config' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_not_config' );
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
@@ -132,11 +132,11 @@ class Votes extends MY_REST_Controller {
 			$date_config = $data_cache [$data_cache ['config_name']];
 			if ($date_config ['start'] > $data_input ['now_datetime'] || $data_input ['now_datetime'] > $date_config ['end']) {
 				// 活動尚未開始
-				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
-				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
+				$this->data_result ['message'] = $this->lang->line ( 'system_expired' );
+				$this->data_result ['code'] = $this->config->item ( 'system_expired' );
 				// 活動尚未開始標記
-				$this->benchmark->mark ( 'error_timeout' );
-				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_timeout' );
+				$this->benchmark->mark ( 'error_expired' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_expired' );
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
@@ -157,12 +157,12 @@ class Votes extends MY_REST_Controller {
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [$data_cache ['name']] = $this->cache->memcached->get ( $data_cache ['name'] );
 			if ($data_cache [$data_cache ['name']] != false && isset ( $data_cache [$data_cache ['name']] [$data_input ['date']] )) {
-				// 投票過
-				$this->data_result ['message'] = $this->lang->line ( 'permissions_error' );
-				$this->data_result ['code'] = $this->config->item ( 'permissions_error' );
-				// 投票過標記
-				$this->benchmark->mark ( 'error_token' );
-				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_token' );
+				// 今天投票過
+				$this->data_result ['message'] = $this->lang->line ( 'event_repeat' );
+				$this->data_result ['code'] = $this->config->item ( 'event_repeat' );
+				// 今天投票過標記
+				$this->benchmark->mark ( 'error_repeat' );
+				$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'error_repeat' );
 				$this->response ( $this->data_result, 405 );
 				return;
 			}

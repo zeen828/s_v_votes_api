@@ -4,7 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $config['system_default'] = 'S0000000';
 $config['system_success'] = 'S0000200';
 $config['system_error'] = 'S0000404';
+$config['system_not_config'] = 'S0000405';
 $config['system_time_out'] = 'S0000408';
+$config['system_expired'] = 'S0000416';
 
 $config['database_error'] = 'D0100001';
 $config['database_stored_procedure_error'] = 'D0100002';
@@ -38,4 +40,6 @@ $config['billing_add_to_cash_error'] = 'B0500003';
 $config['billing_exchange_SN_error'] = 'B0500004';
 
 $config['user_error'] = 'U0600001';
+
+$config['event_repeat'] = 'E0600002';
 $config['user_level_error'] = 'U0600002';
