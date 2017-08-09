@@ -42,7 +42,7 @@ class Auth extends MY_REST_Controller {
 			$data_input ['username'] = $this->post ( 'username' );
 			$data_input ['password'] = $this->post ( 'password' );
 			// 必填檢查
-			if ( empty ( $data_input ['random'] ) || empty ( $data_input ['username'] ) || empty ( $data_input ['password'] ) ) {
+			if (empty ( $data_input ['random'] ) || empty ( $data_input ['username'] ) || empty ( $data_input ['password'] )) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
@@ -53,10 +53,10 @@ class Auth extends MY_REST_Controller {
 				return;
 			}
 			// 時間檢查(不可超過120秒)
-			$datetime = substr( time() , 0 , 10 );
-			$from_datetime = substr( $data_input ['random'] , 0 , 10 );
+			$datetime = substr ( time (), 0, 10 );
+			$from_datetime = substr ( $data_input ['random'], 0, 10 );
 			$time_gap = $datetime - $from_datetime;
-			if($time_gap > 120){
+			if ($time_gap > 120) {
 				// 預時120秒
 				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
 				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
@@ -66,9 +66,9 @@ class Auth extends MY_REST_Controller {
 				$this->response ( $this->data_result, 408 );
 				return;
 			}
-			$output = $this->middle_layer_api->login_vidol($data_input ['username'], $data_input ['password']);
+			$output = $this->middle_layer_api->login_vidol ( $data_input ['username'], $data_input ['password'] );
 			$this->data_result ['result'] = $output;
-			if(isset($output->message) && !empty($output->message)){
+			if (isset ( $output->message ) && ! empty ( $output->message )) {
 				// API有錯誤訊息
 				$this->data_result ['message'] = $this->lang->line ( 'user_error' );
 				$this->data_result ['code'] = $this->config->item ( 'user_error' );
@@ -109,7 +109,7 @@ class Auth extends MY_REST_Controller {
 			$data_input ['facebook_token'] = $this->post ( 'facebook_token' );
 			$data_input ['expiration'] = $this->post ( 'expiration' );
 			// 必填檢查
-			if ( empty ( $data_input ['random'] ) || empty ( $data_input ['uid'] ) || empty ( $data_input ['facebook_token'] ) || empty ( $data_input ['expiration'] ) ) {
+			if (empty ( $data_input ['random'] ) || empty ( $data_input ['uid'] ) || empty ( $data_input ['facebook_token'] ) || empty ( $data_input ['expiration'] )) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
 				$this->data_result ['code'] = $this->config->item ( 'input_required_error' );
@@ -120,10 +120,10 @@ class Auth extends MY_REST_Controller {
 				return;
 			}
 			// 時間檢查(不可超過120秒)
-			$datetime = substr( time() , 0 , 10 );
-			$from_datetime = substr( $data_input ['random'] , 0 , 10 );
+			$datetime = substr ( time (), 0, 10 );
+			$from_datetime = substr ( $data_input ['random'], 0, 10 );
 			$time_gap = $datetime - $from_datetime;
-			if($time_gap > 120){
+			if ($time_gap > 120) {
 				// 預時120秒
 				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
 				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
@@ -134,9 +134,9 @@ class Auth extends MY_REST_Controller {
 				return;
 			}
 			// ML API FB login
-			$output = $this->middle_layer_api->login_facebook($data_input ['uid'], $data_input ['facebook_token'], $data_input ['expiration']);
+			$output = $this->middle_layer_api->login_facebook ( $data_input ['uid'], $data_input ['facebook_token'], $data_input ['expiration'] );
 			$this->data_result ['result'] = $output;
-			if(isset($output->message) && !empty($output->message)){
+			if (isset ( $output->message ) && ! empty ( $output->message )) {
 				// API有錯誤訊息
 				$this->data_result ['message'] = $this->lang->line ( 'user_error' );
 				$this->data_result ['code'] = $this->config->item ( 'user_error' );

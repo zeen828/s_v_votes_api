@@ -48,8 +48,8 @@ class Event_vote_item_model extends CI_Model {
 		}
 		$this->r_db->where ( 'config_id', $config_id );
 		$this->r_db->where ( 'status', '1' );
-		$this->r_db->order_by( 'group_no', 'ASC' );
-		$this->r_db->order_by( 'sort', 'ASC' );
+		$this->r_db->order_by ( 'group_no', 'ASC' );
+		$this->r_db->order_by ( 'sort', 'ASC' );
 		$query = $this->r_db->get ( $this->table_name );
 		// echo $this->r_db->last_query();
 		return $query;

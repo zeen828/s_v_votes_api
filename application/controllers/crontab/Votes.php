@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 /**
  * crontab 指令
  * crontab -l 查詢任務
@@ -13,19 +13,17 @@ class Votes extends CI_Controller {
 		parent::__construct ();
 		$this->data_debug = true;
 		// 效能檢查
-		$this->output->enable_profiler(TRUE);
+		$this->output->enable_profiler ( TRUE );
 	}
 	public function __destruct() {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
 	// 統計
-	public function statistics()
-	{
+	public function statistics() {
 	}
 	// 建立暫存
-	public function cached()
-	{
+	public function cached() {
 		try {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
@@ -39,52 +37,52 @@ class Votes extends CI_Controller {
 			// 變數
 			$vote_config = array ();
 			$data_cache = array ();
-			//取得所有活動設定
-			$query = $this->event_vote_config_model->get_query_by_status_at('*');
-			if ($query->num_rows() > 0) {
-				foreach ($query->result() as $row) {
-					$vote_config[$row->id] = $row;
-					unset($row);
+			// 取得所有活動設定
+			$query = $this->event_vote_config_model->get_query_by_status_at ( '*' );
+			if ($query->num_rows () > 0) {
+				foreach ( $query->result () as $row ) {
+					$vote_config [$row->id] = $row;
+					unset ( $row );
 				}
 			}
-			unset($query);
-			if( count( $vote_config ) >= 1 ){
-				foreach ($vote_config as $key => $value) {
+			unset ( $query );
+			if (count ( $vote_config ) >= 1) {
+				foreach ( $vote_config as $key => $value ) {
 					//
-					$cache_name = sprintf('%s_event_vote_%d', ENVIRONMENT, $value->id);
-					$data_cache[$cache_name] = array(
-						'config_id'=>$value->id,
-						'title'=>$value->title,
-						'des'=>$value->des,
-						'start'=>$value->start_at,
-						'end'=>$value->end_at,
-						'item'=>array(),
+					$cache_name = sprintf ( '%s_event_vote_%d', ENVIRONMENT, $value->id );
+					$data_cache [$cache_name] = array (
+							'config_id' => $value->id,
+							'title' => $value->title,
+							'des' => $value->des,
+							'start' => $value->start_at,
+							'end' => $value->end_at,
+							'item' => array () 
 					);
-					$query = $this->event_vote_item_model->get_query_by_configid_status_sort('*', $value->id);
-					if ($query->num_rows() > 0) {
-						foreach ($query->result() as $row) {
-							$data_cache[$cache_name]['item'][] = array(
-								'item_id'=>$row->id,
-								'group_no'=>$row->group_no,
-								'sort'=>$row->sort,
-								'title'=>$row->title,
-								'des'=>$row->des,
-								'img'=>$row->img_url,
-								'url'=>$row->click_url,
-								'proportion'=>$row->proportion,
+					$query = $this->event_vote_item_model->get_query_by_configid_status_sort ( '*', $value->id );
+					if ($query->num_rows () > 0) {
+						foreach ( $query->result () as $row ) {
+							$data_cache [$cache_name] ['item'] [] = array (
+									'item_id' => $row->id,
+									'group_no' => $row->group_no,
+									'sort' => $row->sort,
+									'title' => $row->title,
+									'des' => $row->des,
+									'img' => $row->img_url,
+									'url' => $row->click_url,
+									'proportion' => $row->proportion 
 							);
-							unset($row);
+							unset ( $row );
 						}
 					}
 					// 紀錄
-					$status = $this->cache->memcached->save ( $cache_name, $data_cache[$cache_name], 90000 );
+					$status = $this->cache->memcached->save ( $cache_name, $data_cache [$cache_name], 90000 );
 					$info = $this->cache->memcached->cache_info ();
-					unset($query);
-					unset($cache_name);
-					unset($value);
+					unset ( $query );
+					unset ( $cache_name );
+					unset ( $value );
 				}
 			}
-			unset($query);
+			unset ( $query );
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算

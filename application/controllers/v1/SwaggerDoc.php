@@ -35,7 +35,7 @@ class SwaggerDoc extends CI_Controller {
 						array (
 								"name" => "2.Vote",
 								"description" => "2.投票" 
-						)
+						) 
 				),
 				"schemes" => array (
 						"http" 
@@ -76,7 +76,7 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
-												)
+												) 
 										),
 										"responses" => array (
 												"200" => array (
@@ -159,7 +159,7 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
-												)
+												) 
 										),
 										"responses" => array (
 												"200" => array (
@@ -221,7 +221,7 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "query",
 														"type" => "integer",
 														"required" => TRUE 
-												)
+												) 
 										),
 										"responses" => array (
 												"200" => array (
@@ -296,7 +296,7 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
-												)
+												) 
 										),
 										"responses" => array (
 												"200" => array (
@@ -382,7 +382,7 @@ class SwaggerDoc extends CI_Controller {
 								"message" => array (
 										"type" => "string",
 										"description" => "會員等級" 
-								)
+								) 
 						) 
 				);
 				break;
@@ -423,7 +423,7 @@ class SwaggerDoc extends CI_Controller {
 								"proportion" => array (
 										"type" => "string",
 										"description" => "得票率" 
-								)
+								) 
 						) 
 				);
 				break;
