@@ -26,7 +26,7 @@ class Votes extends MY_REST_Controller {
 		$tables = $this->db->list_tables();
 		foreach ($tables as $table)
 		{
-		        echo $table;
+		        echo $table, "<br/>\n";
 		}
 	}
 	public function vote_get() {
