@@ -101,7 +101,7 @@ class Votes extends MY_REST_Controller {
 				return;
 			}
 			// 取得token轉換資料
-			$user = $this->token_model->get_user_row_by_token( '*', $data_input ['token'] );
+			$user = $this->token_model->get_user_row_by_token( 'identities.*', $data_input ['token'] );
 			print_r($user);
 			$identities = $this->token_model->get_oauth_access_tokens_by_token('resource_owner_id', $data_input ['token']);
 			print_r($identities);
