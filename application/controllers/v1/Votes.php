@@ -75,6 +75,7 @@ class Votes extends MY_REST_Controller {
 			// 引入
 			$this->config->load ( 'restful_status_code' );
 			$this->load->model ( 'postgre/token_model' );
+			$this->load->model ( 'vidol_event/event_vote_select_model' );
 			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
 			$this->load->driver ( 'cache', array (
 					'adapter' => 'memcached',
@@ -136,7 +137,23 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 405 );
 				return;
 			}
-			$data_cache [$data_cache['name']][$data_input ['date']] = true;
+			//
+			$data_post = array(
+				'config_id'=>$data_input ['config_id'],
+				'item_id'=>$data_input ['item_id'],
+				'user_id'=>$user->uid,
+				'user_updated_at'=>$user->uid,
+				'ticket'=>1,
+				'year_at'=>date('Y'),
+				'month_at'=>date('m'),
+				'day_at'=>date('d'),
+				'hour_at'=>date('h'),
+				'minute_at'=>date('i'),
+				'created_at'=>date('Y-m-d h:i:s'),
+			);
+			$ststus = $this->event_vote_select_model->insert_data( $data_post );
+			$data_cache [$data_cache['name']][$data_input ['date']] = $ststus;
+			// $data_cache [$data_cache['name']][$data_input ['date']] = true;
 			// 紀錄
 			$status = $this->cache->memcached->save ( $data_cache [ 'name' ], $data_cache [$data_cache['name']], 90000 );//25小時90000秒
 			$info = $this->cache->memcached->cache_info ();
