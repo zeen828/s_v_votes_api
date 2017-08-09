@@ -130,7 +130,7 @@ class Votes extends MY_REST_Controller {
 			}
 			// 有無過期
 			$date_config = $data_cache [$data_cache ['config_name']];
-			if ($data_input ['now_datetime'] < $date_config ['start'] || $data_input ['now_datetime'] > $date_config ['end']) {
+			if ($date_config ['start'] <= $data_input ['now_datetime'] || $data_input ['now_datetime'] >= $date_config ['end']) {
 				// 活動尚未開始
 				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
 				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
