@@ -74,6 +74,7 @@ class Votes extends CI_Controller {
 							unset ( $row );
 						}
 					}
+					print_r($data_cache [$cache_name]);
 					// 紀錄
 					$status = $this->cache->memcached->save ( $cache_name, $data_cache [$cache_name], 90000 );
 					$info = $this->cache->memcached->cache_info ();
