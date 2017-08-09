@@ -4,8 +4,8 @@ if (! defined ( 'BASEPATH' ))
 class Token_model extends CI_Model {
 	public function __construct() {
 		parent::__construct ();
-		$this->r_db = $this->load->database ( 'postgre_production_read', TRUE );
-		$this->w_db = $this->load->database ( 'postgre_production_write', TRUE );
+		$this->r_db = $this->load->database ( 'postgre_read', TRUE );
+		$this->w_db = $this->load->database ( 'postgre_read', TRUE );
 	}
 	public function __destruct() {
 		$this->r_db->close ();
