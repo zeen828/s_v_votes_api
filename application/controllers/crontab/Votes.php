@@ -41,6 +41,7 @@ class Votes extends CI_Controller {
 			$query = $this->event_vote_config_model->get_query_by_status_at ( '*' );
 			if ($query->num_rows () > 0) {
 				foreach ( $query->result () as $row ) {
+					print_r ( $row );
 					$vote_config [$row->id] = $row;
 					unset ( $row );
 				}
@@ -48,6 +49,7 @@ class Votes extends CI_Controller {
 			unset ( $query );
 			if (count ( $vote_config ) >= 1) {
 				foreach ( $vote_config as $key => $value ) {
+					print_r ( $value );
 					//
 					$cache_name = sprintf ( '%s_event_vote_%d', ENVIRONMENT, $value->id );
 					$data_cache [$cache_name] = array (
@@ -61,6 +63,7 @@ class Votes extends CI_Controller {
 					$query = $this->event_vote_item_model->get_query_by_configid_status_sort ( '*', $value->id );
 					if ($query->num_rows () > 0) {
 						foreach ( $query->result () as $row ) {
+							print_r ( $row );
 							$data_cache [$cache_name] ['item'] [] = array (
 									'item_id' => $row->id,
 									'group_no' => $row->group_no,
