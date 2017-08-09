@@ -124,6 +124,7 @@ class Votes extends MY_REST_Controller {
 			// debug
 			$this->data_result ['input'] = $data_input;
 			$this->data_result ['cache'] = $data_cache;
+			$this->data_result ['user'] = $user;
 			// debug
 			if ($data_cache [$data_cache['name']] != false && isset( $data_cache [$data_cache['name']][$data_input ['date']])) {
 				// 投票過
