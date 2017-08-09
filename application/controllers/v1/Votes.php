@@ -106,7 +106,7 @@ class Votes extends MY_REST_Controller {
 			if ($identities == false) {
 
 			}
-			$user = $this->token_model->get_identities_by_pk('resource_owner_id', $identities->resource_owner_id);
+			$user = $this->token_model->get_identities_by_pk('*', $identities->resource_owner_id);
 			print_r($user);
 			if ($user == false) {
 
