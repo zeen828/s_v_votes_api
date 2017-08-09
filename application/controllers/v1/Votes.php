@@ -31,7 +31,7 @@ class Votes extends MY_REST_Controller {
 		$token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZGVudGl0eSI6eyJpZCI6NjIxMjM1LCJ1aWQiOiJ2UVVwMnNrcWNGIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJhcHBsaWNhdGlvbl9pZCI6MSwiZXhwaXJlc19hdCI6MTUwMjQyMDc0NywicmFuZF9rZXkiOiI4YTJlNDBmOWYwMmVmNjhiYThhYzQxOWIyNmYwNDE1NCJ9.afK2HdCA3TuSXAdTCBSNIvXT7TIdyFFoF6onToco0ZuPCHchl1Rmb3DHDVnHGeyCqf3sYr4m7ukL6lV40gN1DA';
 
 		$this->load->model ( 'postgre/token_model' );
-		$query = $this->token_model->get_oauth_access_tokens_by_token_or_refreshtoken('*', $token, null);
+		$query = $this->token_model->get_oauth_access_tokens_by_token('*', $token, null);
 		if ($query->num_rows() > 0) {
 			foreach ($query->result() as $row) {
 				print_r($row);
@@ -119,7 +119,7 @@ class Votes extends MY_REST_Controller {
 				return;
 			}
 			// 取得token轉換資料
-			$token = $this->token_model->get_oauth_access_tokens_by_token_or_refreshtoken('*', $data_input ['token'], null);
+			$token = $this->token_model->get_oauth_access_tokens_by_token('*', $data_input ['token']);
 			print_r($token);
 
 			// 結束時間標記

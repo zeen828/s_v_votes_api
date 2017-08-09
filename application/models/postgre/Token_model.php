@@ -14,19 +14,17 @@ class Token_model extends CI_Model {
 		unset ( $this->w_db );
 		// parent::__destruct();
 	}
-	public function get_oauth_access_tokens_by_token_or_refreshtoken($select, $token=null, $refresh_token=null) {
+	public function get_oauth_access_tokens_by_token($select, $token) {
 		if (! empty ( $select )) {
 			$this->r_db->select ( $select );
 		}
-		if (! empty ( $token )) {
-			$this->w_db->where ( 'token', $token );
-		}
-		if (! empty ( $refresh_token )) {
-			$this->w_db->where ( 'refresh_token', $refresh_token );
-		}
+		$this->r_db->where ( 'token', $token );
 		$query = $this->r_db->get ( 'oauth_access_tokens' );
 		// echo $this->r_db->last_query();
-		return $query;
+		if ($query->num_rows () > 0) {
+			return $query->row ();
+		}
+		return false;
 	}
 	public function get_identities_by_pk($select, $pk) {
 		if (! empty ( $select )) {
