@@ -20,24 +20,6 @@ class Votes extends MY_REST_Controller {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
-	public function test_get() {
-		$this->output->enable_profiler(TRUE);
-		$this->load->database ( 'postgre_read' );
-		$tables = $this->db->list_tables();
-		foreach ($tables as $table)
-		{
-		        echo $table, "<br/>\n";
-		}
-		$token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpZGVudGl0eSI6eyJpZCI6NjIxMjM1LCJ1aWQiOiJ2UVVwMnNrcWNGIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJhcHBsaWNhdGlvbl9pZCI6MSwiZXhwaXJlc19hdCI6MTUwMjQyMDc0NywicmFuZF9rZXkiOiI4YTJlNDBmOWYwMmVmNjhiYThhYzQxOWIyNmYwNDE1NCJ9.afK2HdCA3TuSXAdTCBSNIvXT7TIdyFFoF6onToco0ZuPCHchl1Rmb3DHDVnHGeyCqf3sYr4m7ukL6lV40gN1DA';
-
-		$this->load->model ( 'postgre/token_model' );
-		$query = $this->token_model->get_oauth_access_tokens_by_token('*', $token, null);
-		if ($query->num_rows() > 0) {
-			foreach ($query->result() as $row) {
-				print_r($row);
-			}
-		}
-	}
 	public function vote_get() {
 		try {
 			// 開始時間標記
@@ -119,9 +101,16 @@ class Votes extends MY_REST_Controller {
 				return;
 			}
 			// 取得token轉換資料
-			$token = $this->token_model->get_oauth_access_tokens_by_token('*', $data_input ['token']);
-			print_r($token);
+			$identities = $this->token_model->get_oauth_access_tokens_by_token('resource_owner_id', $data_input ['token']);
+			print_r($identities);
+			if ($identities == false) {
 
+			}
+			$user = $this->token_model->get_identities_by_pk('resource_owner_id', $identities->resource_owner_id);
+			print_r($user);
+			if ($user == false) {
+
+			}
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
