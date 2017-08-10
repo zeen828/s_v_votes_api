@@ -93,6 +93,7 @@ class Votes extends CI_Controller {
 							}else{
 								$proportion = $ticket_total / $ticket_sum;
 							}
+							$this->event_vote_item_model->update_data($row->id, array( 'proportion'=>$proportion,));
 							print_r($proportion);
 							unset ( $row );
 						}
