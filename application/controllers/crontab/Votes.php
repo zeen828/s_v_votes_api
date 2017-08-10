@@ -63,10 +63,6 @@ class Votes extends CI_Controller {
 			// 引入
 			$this->load->model ( 'vidol_event/event_vote_config_model' );
 			$this->load->model ( 'vidol_event/event_vote_item_model' );
-			$this->load->driver ( 'cache', array (
-					'adapter' => 'memcached',
-					'backup' => 'dummy'
-			) );
 			// 變數
 			$vote_config = array ();
 			$data_cache = array ();
@@ -82,46 +78,26 @@ class Votes extends CI_Controller {
 			if (count ( $vote_config ) >= 1) {
 				foreach ( $vote_config as $key => $value ) {
 					print_r($value);
-					//
-					$cache_name = sprintf ( '%s_event_vote_%d', ENVIRONMENT, $value->id );
-					$data_cache [$cache_name] = array (
-							'config_id' => $value->id,
-							'title' => $value->title,
-							'des' => $value->des,
-							'start' => $value->start_at,
-							'end' => $value->end_at,
-							'item' => array ()
-					);
 					// 算得票比例用
 					$sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $value->id );
 					print_r($sum);
+					// 該活動總票數
+					$ticket_total = $sum->sum_ticket + $sum->sum_ticket_add;
 					$query = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $value->id );
 					if ($query->num_rows () > 0) {
 						foreach ( $query->result () as $row ) {
 							print_r($row);
-							$data_cache [$cache_name] ['item'] [] = array (
-									'item_id' => $row->id,
-									'group_no' => $row->group_no,
-									'sort' => $row->sort,
-									'title' => $row->title,
-									'des' => $row->des,
-									'img' => $row->img_url,
-									'url' => $row->click_url,
-									'proportion' => $row->proportion
-							);
+							$ticket_sum = $row->ticket + $row->ticket;
+							if(empty($ticket_total) || empty($ticket_sum)){
+								$proportion = '0.00';
+							}else{
+								$proportion = $ticket_total / $ticket_sum;
+							}
+							print_r($proportion);
 							unset ( $row );
 						}
 					}
 					unset ( $query );
-					// 紀錄
-					$status = $this->cache->memcached->save ( $cache_name, $data_cache [$cache_name], 90000 );
-					print_r ( $data_cache [$cache_name] );
-					$info = $this->cache->memcached->cache_info ();
-					print_r ( $info );
-					unset ( $info );
-					unset ( $status );
-					unset ( $query );
-					unset ( $cache_name );
 					unset ( $value );
 				}
 			}
