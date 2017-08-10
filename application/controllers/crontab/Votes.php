@@ -19,8 +19,8 @@ class Votes extends CI_Controller {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
-	// 統計報表
-	public function statistics() {
+	// 更新票數
+	public function update_vote() {
 		try {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
