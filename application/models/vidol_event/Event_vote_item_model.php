@@ -54,13 +54,16 @@ class Event_vote_item_model extends CI_Model {
 		// echo $this->r_db->last_query();
 		return $query;
 	}
-	public function get_item_sum_by_configid_status_group($config_id) {
-		$this->r_db->select ( 'config_id, sum(ticket), sum(ticket_add)' );
+	public function get_item_sum_row_by_configid_status_group($config_id) {
+		$this->r_db->select ( 'config_id, SUM(ticket), SUM(ticket_add) ' );
 		$this->r_db->where ( 'config_id', $config_id );
 		$this->r_db->where ( 'status', '1' );
 		$this->r_db->group_by ( 'config_id' );
 		$query = $this->r_db->get ( $this->table_name );
 		echo $this->r_db->last_query();
-		return $query;
+		if ($query->num_rows () > 0) {
+			return $query->row ();
+		}
+		return false;
 	}
 }
