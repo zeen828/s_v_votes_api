@@ -42,7 +42,7 @@ class Event_vote_item_model extends CI_Model {
 		}
 		return false;
 	}
-	public function get_query_by_configid_status_sort($select, $config_id) {
+	public function get_item_by_configid_status_sort($select, $config_id) {
 		if (! empty ( $select )) {
 			$this->r_db->select ( $select );
 		}
@@ -52,6 +52,15 @@ class Event_vote_item_model extends CI_Model {
 		$this->r_db->order_by ( 'sort', 'ASC' );
 		$query = $this->r_db->get ( $this->table_name );
 		// echo $this->r_db->last_query();
+		return $query;
+	}
+	public function get_item_sum_by_configid_status_group($config_id) {
+		$this->r_db->select ( 'config_id, sum(ticket), sum(ticket_add)' );
+		$this->r_db->where ( 'config_id', $config_id );
+		$this->r_db->where ( 'status', '1' );
+		$this->r_db->group_by ( 'config_id' );
+		$query = $this->r_db->get ( $this->table_name );
+		echo $this->r_db->last_query();
 		return $query;
 	}
 }

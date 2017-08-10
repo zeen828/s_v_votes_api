@@ -83,7 +83,8 @@ class Votes extends CI_Controller {
 			if (count ( $vote_config ) >= 1) {
 				foreach ( $vote_config as $key => $value ) {
 					print_r($value);
-					$query = $this->event_vote_config_model->get_query_by_configid_status_sort ( '*' );
+					$ticket = $this->event_vote_config_model->get_item_sum_by_configid_status_group ( $value->id );
+					$query = $this->event_vote_config_model->get_item_by_configid_status_sort ( '*', $value->id );
 					unset ( $query );
 					unset ( $value );
 				}
@@ -135,7 +136,7 @@ class Votes extends CI_Controller {
 							'end' => $value->end_at,
 							'item' => array () 
 					);
-					$query = $this->event_vote_item_model->get_query_by_configid_status_sort ( '*', $value->id );
+					$query = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $value->id );
 					if ($query->num_rows () > 0) {
 						foreach ( $query->result () as $row ) {
 							$data_cache [$cache_name] ['item'] [] = array (
