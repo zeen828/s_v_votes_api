@@ -19,7 +19,7 @@ class Votes extends CI_Controller {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
-	// 更新票數
+	// 更新項目得票總票數
 	public function update_vote_item_ticket() {
 		try {
 			// 開始時間標記
@@ -38,6 +38,7 @@ class Votes extends CI_Controller {
 							// print_r($row_item);
 							$status = $this->event_vote_item_model->update_item_ticket($row_config->id, $row_item->id);
 							echo $row_config->title, ' - ', $row_item->title, ' - ', '票數統計[', $status, ']<br/>';
+							unset ( $status );
 							unset ( $row_item );
 						}
 					}

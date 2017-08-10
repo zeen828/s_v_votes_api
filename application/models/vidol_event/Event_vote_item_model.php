@@ -66,7 +66,7 @@ class Event_vote_item_model extends CI_Model {
 		}
 		return false;
 	}
-	//更新項目得票總票數
+	// 更新項目得票總票數
 	public function update_item_ticket($config_id, $time_id) {
 		//UPDATE `event_vote_item_tbl` SET ticket = ( 
 		//  SELECT SUM(ticket) as sum_ticket
