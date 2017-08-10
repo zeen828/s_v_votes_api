@@ -37,7 +37,7 @@ class Votes extends CI_Controller {
 						foreach ( $query_item->result () as $row_item ) {
 							// print_r($row_item);
 							$status = $this->event_vote_item_model->update_item_ticket($row_config->id, $row_item->id);
-							echo $row_config->title, ' - ', $row_item->title, "票數統計","<br/>";
+							echo $row_config->title, ' - ', $row_item->title, ' - ', '票數統計[', $status, ']<br/>';
 							unset ( $row_item );
 						}
 					}
