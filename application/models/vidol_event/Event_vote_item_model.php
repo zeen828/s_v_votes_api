@@ -72,10 +72,11 @@ class Event_vote_item_model extends CI_Model {
 		$this->r_db->where ( 'item_id', $time_id );
 		$this->r_db->group_by ( array('config_id', 'item_id') );
 		$sql = $this->r_db->get_compiled_select ( 'event_vote_select_tbl' );
+		echo $sql;
 		//
 		$this->w_db->set('ticket', '(' . $sql . ')', false);
 		$this->w_db->where ( $this->fields_pk, $config_id );
-		$this->w_db->update ( $this->table_name, $data );
+		$this->w_db->update ( $this->table_name );
 		$result = $this->w_db->affected_rows ();
 		echo $this->w_db->last_query();
 		return $result;
