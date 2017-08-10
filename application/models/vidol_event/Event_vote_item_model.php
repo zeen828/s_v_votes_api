@@ -55,7 +55,7 @@ class Event_vote_item_model extends CI_Model {
 		return $query;
 	}
 	public function get_item_sum_row_by_configid_status_group($config_id) {
-		$this->r_db->select ( 'config_id, SUM(ticket), SUM(ticket_add) ' );
+		$this->r_db->select ( 'config_id, SUM(ticket) as sum_ticket, SUM(ticket_add) as sum_ticket_add' );
 		$this->r_db->where ( 'config_id', $config_id );
 		$this->r_db->where ( 'status', '1' );
 		$this->r_db->group_by ( 'config_id' );
