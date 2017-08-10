@@ -93,7 +93,7 @@ class Votes extends CI_Controller {
 							if(empty($ticket_total) || empty($ticket_sum)){
 								$proportion = '0.00';
 							}else{
-								$proportion = $ticket_total / $ticket_sum;
+								$proportion = ( $ticket_sum / $ticket_total ) * 100;
 							}
 							$this->event_vote_item_model->update_data($row->id, array( 'proportion'=>$proportion,));
 							print_r($proportion);
