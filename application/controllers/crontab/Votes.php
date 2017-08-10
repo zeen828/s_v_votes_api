@@ -57,7 +57,7 @@ class Votes extends CI_Controller {
 		}
 	}
 	// 得票率換算
-	public function proportion() {
+	public function update_vote_item_proportion() {
 		try {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
