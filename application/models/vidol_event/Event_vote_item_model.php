@@ -67,13 +67,13 @@ class Event_vote_item_model extends CI_Model {
 		return false;
 	}
 	public function update_item_ticket($config_id, $time_id) {
-		$this->r_db->group_start()->select ( 'SUM(ticket) as sum_ticket' );
+		$this->r_db->select ( 'SUM(ticket) as sum_ticket' );
 		$this->r_db->where ( 'config_id', $config_id );
 		$this->r_db->where ( 'item_id', $time_id );
 		$this->r_db->group_by ( 'config_id' );
-		$sql = $this->r_db->get_compiled_select ( 'event_vote_select_tbl' )->group_end();
+		$sql = $this->r_db->get_compiled_select ( 'event_vote_select_tbl' );
 		//
-		$this->w_db->set('ticket', $sql, false);
+		$this->w_db->set('ticket', '(' . $sql . ')', false);
 		$this->w_db->where ( $this->fields_pk, $config_id );
 		$this->w_db->update ( $this->table_name, $data );
 		$result = $this->w_db->affected_rows ();
