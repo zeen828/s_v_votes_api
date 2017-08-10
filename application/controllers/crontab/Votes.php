@@ -32,6 +32,7 @@ class Votes extends CI_Controller {
 			if ($query_config->num_rows () > 0) {
 				foreach ( $query_config->result () as $row_config ) {
 					// print_r($row_config);
+					// 取得config_id活動項目
 					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*' , $row_config->id);
 					if ($query_item->num_rows () > 0) {
 						foreach ( $query_item->result () as $row_item ) {
@@ -63,49 +64,37 @@ class Votes extends CI_Controller {
 			// 引入
 			$this->load->model ( 'vidol_event/event_vote_config_model' );
 			$this->load->model ( 'vidol_event/event_vote_item_model' );
-			// 變數
-			$vote_config = array ();
-			$data_cache = array ();
 			// 取得所有活動設定
-			$query = $this->event_vote_config_model->get_query_by_status_at ( '*' );
-			if ($query->num_rows () > 0) {
-				foreach ( $query->result () as $row ) {
-					$vote_config [$row->id] = $row;
-					unset ( $row );
-				}
-			}
-			unset ( $query );
-			if (count ( $vote_config ) >= 1) {
-				foreach ( $vote_config as $key => $value ) {
-					print_r($value);
+			$query_config = $this->event_vote_config_model->get_query_by_status_at ( '*' );
+			if ($query_config->num_rows () > 0) {
+				foreach ( $query_config->result () as $row_config ) {
+					// print_r($row_config);
 					// 算得票比例用
 					$sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $value->id );
-					print_r($sum);
 					// 該活動總票數
 					$ticket_total = $sum->sum_ticket + $sum->sum_ticket_add;
-					$query = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $value->id );
-					if ($query->num_rows () > 0) {
-						foreach ( $query->result () as $row ) {
-							print_r($row);
-							$ticket_sum = $row->ticket + $row->ticket_add;
-							echo $ticket_total, '<br/>';
-							echo $ticket_sum, '<br/>';
+					// 取得config_id活動項目
+					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $value->id );
+					if ($query_item->num_rows () > 0) {
+						foreach ( $query_item->result () as $row_item ) {
+							// print_r($row_item);
+							$ticket_sum = $row_item->ticket + $row_item->ticket_add;
 							if(empty($ticket_total) || empty($ticket_sum)){
 								$proportion = '0.00';
 							}else{
 								$proportion = ( $ticket_sum / $ticket_total ) * 100;
 							}
-							$this->event_vote_item_model->update_data($row->id, array( 'proportion'=>$proportion,));
-							print_r($proportion);
-							unset ( $row );
+							$status = $this->event_vote_item_model->update_data($row_item->id, array( 'proportion'=>$proportion,));
+							// print_r($proportion);
+							unset ( $proportion );
+							unset ( $row_item );
 						}
 					}
-					unset ( $query );
-					unset ( $value );
+					unset ( $query_item );
+					unset ( $row_config );
 				}
 			}
-			unset ( $data_cache );
-			unset ( $vote_config );
+			unset ( $query_config );
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
