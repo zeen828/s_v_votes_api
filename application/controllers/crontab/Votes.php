@@ -86,6 +86,12 @@ class Votes extends CI_Controller {
 					$ticket = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $value->id );
 					print_r($ticket);
 					$query = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $value->id );
+					if ($query->num_rows () > 0) {
+						foreach ( $query->result () as $row ) {
+							print_r($row);
+							unset ( $row );
+						}
+					}
 					unset ( $query );
 					unset ( $value );
 				}

@@ -60,7 +60,7 @@ class Event_vote_item_model extends CI_Model {
 		$this->r_db->where ( 'status', '1' );
 		$this->r_db->group_by ( 'config_id' );
 		$query = $this->r_db->get ( $this->table_name );
-		echo $this->r_db->last_query();
+		// echo $this->r_db->last_query();
 		if ($query->num_rows () > 0) {
 			return $query->row ();
 		}
