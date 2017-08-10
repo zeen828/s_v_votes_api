@@ -70,11 +70,11 @@ class Votes extends CI_Controller {
 				foreach ( $query_config->result () as $row_config ) {
 					// print_r($row_config);
 					// 算得票比例用
-					$sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $value->id );
+					$sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $row_config->id );
 					// 該活動總票數
 					$ticket_total = $sum->sum_ticket + $sum->sum_ticket_add;
 					// 取得config_id活動項目
-					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $value->id );
+					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $row_config->id );
 					if ($query_item->num_rows () > 0) {
 						foreach ( $query_item->result () as $row_item ) {
 							// print_r($row_item);
