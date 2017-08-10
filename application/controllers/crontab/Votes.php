@@ -27,26 +27,24 @@ class Votes extends CI_Controller {
 			// 引入
 			$this->load->model ( 'vidol_event/event_vote_config_model' );
 			$this->load->model ( 'vidol_event/event_vote_item_model' );
-			$this->load->driver ( 'cache', array (
-					'adapter' => 'memcached',
-					'backup' => 'dummy'
-			) );
-			// 變數
-			$vote_config = array ();
-			$data_cache = array ();
 			// 取得所有活動設定
-			$query = $this->event_vote_config_model->get_query_by_status_at ( '*' );
-			if ($query->num_rows () > 0) {
-				foreach ( $query->result () as $row ) {
-					print_r($row);
-					$vote_config [$row->id] = $row;
-					unset ( $row );
+			$query_config = $this->event_vote_config_model->get_query_by_status_at ( '*' );
+			if ($query_config->num_rows () > 0) {
+				foreach ( $query_config->result () as $row_config ) {
+					print_r($row_config);
+					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*' , $row_config->id);
+					if ($query_item->num_rows () > 0) {
+						foreach ( $query_item->result () as $row_item ) {
+							print_r($row_item);
+							
+							unset ( $row_item );
+						}
+					}
+					unset ( $query_item );
+					unset ( $row_config );
 				}
 			}
-			unset ( $query );
-			//
-			unset ( $data_cache );
-			unset ( $vote_config );
+			unset ( $query_config );
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
 			// 標記時間計算
