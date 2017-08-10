@@ -87,7 +87,7 @@ class Votes extends CI_Controller {
 					if ($query->num_rows () > 0) {
 						foreach ( $query->result () as $row ) {
 							print_r($row);
-							$ticket_sum = $row->ticket + $row->ticket;
+							$ticket_sum = $row->ticket + $row->ticket_add;
 							if(empty($ticket_total) || empty($ticket_sum)){
 								$proportion = '0.00';
 							}else{
