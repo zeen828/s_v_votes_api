@@ -75,7 +75,7 @@ class Event_vote_item_model extends CI_Model {
 		echo $sql;
 		//
 		$this->w_db->set('ticket', '(' . $sql . ')', false);
-		$this->w_db->where ( $this->fields_pk, $config_id );
+		$this->w_db->where ( $this->fields_pk, $time_id );
 		$this->w_db->update ( $this->table_name );
 		$result = $this->w_db->affected_rows ();
 		echo $this->w_db->last_query();
