@@ -38,6 +38,7 @@ class Votes extends CI_Controller {
 			$query = $this->event_vote_config_model->get_query_by_status_at ( '*' );
 			if ($query->num_rows () > 0) {
 				foreach ( $query->result () as $row ) {
+					print_r($row);
 					$vote_config [$row->id] = $row;
 					unset ( $row );
 				}
