@@ -88,6 +88,8 @@ class Votes extends CI_Controller {
 						foreach ( $query->result () as $row ) {
 							print_r($row);
 							$ticket_sum = $row->ticket + $row->ticket_add;
+							echo $ticket_total, '<br/>';
+							echo $ticket_sum, '<br/>';
 							if(empty($ticket_total) || empty($ticket_sum)){
 								$proportion = '0.00';
 							}else{
@@ -148,8 +150,6 @@ class Votes extends CI_Controller {
 							'end' => $value->end_at,
 							'item' => array () 
 					);
-					// 算得票比例用
-					//$sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $value->id );
 					$query = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $value->id );
 					if ($query->num_rows () > 0) {
 						foreach ( $query->result () as $row ) {
