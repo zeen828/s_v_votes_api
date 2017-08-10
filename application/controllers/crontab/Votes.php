@@ -19,7 +19,7 @@ class Votes extends CI_Controller {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
-	// 統計
+	// 統計報表
 	public function statistics() {
 		try {
 			// 開始時間標記
@@ -44,6 +44,50 @@ class Votes extends CI_Controller {
 				}
 			}
 			unset ( $query );
+			//
+			unset ( $data_cache );
+			unset ( $vote_config );
+			// 結束時間標記
+			$this->benchmark->mark ( 'code_end' );
+			// 標記時間計算
+			$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'code_end' );
+		} catch ( Exception $e ) {
+			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
+		}
+	}
+	// 得票率換算
+	public function proportion() {
+		try {
+			// 開始時間標記
+			$this->benchmark->mark ( 'code_start' );
+			// 引入
+			$this->load->model ( 'vidol_event/event_vote_config_model' );
+			$this->load->model ( 'vidol_event/event_vote_item_model' );
+			$this->load->driver ( 'cache', array (
+					'adapter' => 'memcached',
+					'backup' => 'dummy'
+			) );
+			// 變數
+			$vote_config = array ();
+			$data_cache = array ();
+			// 取得所有活動設定
+			$query = $this->event_vote_config_model->get_query_by_status_at ( '*' );
+			if ($query->num_rows () > 0) {
+				foreach ( $query->result () as $row ) {
+					print_r($row);
+					$vote_config [$row->id] = $row;
+					unset ( $row );
+				}
+			}
+			unset ( $query );
+			if (count ( $vote_config ) >= 1) {
+				foreach ( $vote_config as $key => $value ) {
+					print_r($value);
+					$query = $this->event_vote_config_model->get_query_by_configid_status_sort ( '*' );
+					unset ( $query );
+					unset ( $value );
+				}
+			}
 			//
 			unset ( $data_cache );
 			unset ( $vote_config );
@@ -107,6 +151,7 @@ class Votes extends CI_Controller {
 							unset ( $row );
 						}
 					}
+					unset ( $query );
 					// 紀錄
 					$status = $this->cache->memcached->save ( $cache_name, $data_cache [$cache_name], 90000 );
 					print_r ( $data_cache [$cache_name] );
@@ -119,7 +164,6 @@ class Votes extends CI_Controller {
 					unset ( $value );
 				}
 			}
-			unset ( $query );
 			unset ( $data_cache );
 			unset ( $vote_config );
 			// 結束時間標記
