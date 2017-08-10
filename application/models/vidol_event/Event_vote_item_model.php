@@ -66,19 +66,26 @@ class Event_vote_item_model extends CI_Model {
 		}
 		return false;
 	}
+	//更新項目得票總票數
 	public function update_item_ticket($config_id, $time_id) {
+		//UPDATE `event_vote_item_tbl` SET ticket = ( 
+		//  SELECT SUM(ticket) as sum_ticket
+		//  FROM `event_vote_select_tbl`
+		//  WHERE `config_id` = '1'
+		//  AND `item_id` = '9'
+		//  GROUP BY `config_id`, `item_id`
+		//) WHERE `id` = '9' 
 		$this->r_db->select ( 'SUM(ticket) as sum_ticket' );
 		$this->r_db->where ( 'config_id', $config_id );
 		$this->r_db->where ( 'item_id', $time_id );
 		$this->r_db->group_by ( array('config_id', 'item_id') );
 		$sql = $this->r_db->get_compiled_select ( 'event_vote_select_tbl' );
-		echo $sql;
-		//
-		$this->w_db->set('ticket', '(' . $sql . ')', false);
+		// echo $sql;
+		$this->w_db->set('ticket', '( ' . $sql . ' )', false);
 		$this->w_db->where ( $this->fields_pk, $time_id );
 		$this->w_db->update ( $this->table_name );
 		$result = $this->w_db->affected_rows ();
-		echo $this->w_db->last_query();
+		// echo $this->w_db->last_query();
 		return $result;
 	}
 }

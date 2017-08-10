@@ -20,7 +20,7 @@ class Votes extends CI_Controller {
 		unset ( $this->data_result );
 	}
 	// 更新票數
-	public function update_vote() {
+	public function update_vote_item_ticket() {
 		try {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
@@ -31,11 +31,11 @@ class Votes extends CI_Controller {
 			$query_config = $this->event_vote_config_model->get_query_by_status_at ( '*' );
 			if ($query_config->num_rows () > 0) {
 				foreach ( $query_config->result () as $row_config ) {
-					print_r($row_config);
+					// print_r($row_config);
 					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*' , $row_config->id);
 					if ($query_item->num_rows () > 0) {
 						foreach ( $query_item->result () as $row_item ) {
-							print_r($row_item);
+							// print_r($row_item);
 							$this->event_vote_item_model->update_item_ticket($row_config->id, $row_item->id);
 							unset ( $row_item );
 						}
