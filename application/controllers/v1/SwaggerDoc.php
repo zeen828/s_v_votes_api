@@ -258,7 +258,7 @@ class SwaggerDoc extends CI_Controller {
 																"type" => "object",
 																"description" => "api result data",
 																"properties" => array (
-																		"result" => $this->__get_responses_data ( "ml_api_oauth_token" ),
+																		"result" => $this->__get_responses_data ( "vote_config_info" ),
 																		"code" => array (
 																				"type" => "string",
 																				"description" => "狀態碼" 
@@ -410,15 +410,49 @@ class SwaggerDoc extends CI_Controller {
 								"created_at" => array (
 										"type" => "string",
 										"description" => "建立時間" 
-								),
-								"status_code" => array (
-										"type" => "string",
-										"description" => "序號" 
-								),
-								"message" => array (
-										"type" => "string",
-										"description" => "會員等級" 
 								) 
+						) 
+				);
+				break;
+			case "vote_config_info" :
+				$responses = array (
+						"title" => "vote config info",
+						"type" => "object",
+						"description" => "投票項目資料",
+						"properties" => array (
+								"config" => array (
+										"type" => "string",
+										"description" => "設定檔ID" 
+								),
+								"title" => array (
+										"type" => "string",
+										"description" => "標題" 
+								),
+								"des" => array (
+										"type" => "string",
+										"description" => "描述" 
+								),
+								"login" => array (
+										"type" => "integer",
+										"description" => "登入規則(0:不需登入1:需要登入2:FB登入3:V登入)" 
+								),
+								"vote" => array (
+										"type" => "integer",
+										"description" => "投票規則(0:不重複1:重複)" 
+								),
+								"vote_int" => array (
+										"type" => "integer",
+										"description" => "每天可投票次數" 
+								),
+								"start" => array (
+										"type" => "string",
+										"description" => "開始時間(+8)" 
+								),
+								"end" => array (
+										"type" => "string",
+										"description" => "結束時間(+8)" 
+								),
+								"item" => $this->__get_responses_data ( "vote_item_info" ) 
 						) 
 				);
 				break;
@@ -428,17 +462,17 @@ class SwaggerDoc extends CI_Controller {
 						"type" => "object",
 						"description" => "投票項目資料",
 						"properties" => array (
-								"id" => array (
-										"type" => "string",
+								"item_id" => array (
+										"type" => "integer",
 										"description" => "項目ID" 
 								),
-								"config" => array (
-										"type" => "string",
-										"description" => "設定ID" 
-								),
-								"group" => array (
+								"group_no" => array (
 										"type" => "integer",
 										"description" => "分群" 
+								),
+								"sort" => array (
+										"type" => "integer",
+										"description" => "順序" 
 								),
 								"title" => array (
 										"type" => "string",
@@ -457,7 +491,7 @@ class SwaggerDoc extends CI_Controller {
 										"description" => "連結網址" 
 								),
 								"proportion" => array (
-										"type" => "string",
+										"type" => "integer",
 										"description" => "得票率" 
 								) 
 						) 
