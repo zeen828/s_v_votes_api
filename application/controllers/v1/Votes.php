@@ -41,8 +41,13 @@ class Votes extends MY_REST_Controller {
 					'time' => 0 
 			);
 			// 接收變數
-			$data_input ['debug'] = $this->get ( 'debug' );
 			$data_input ['config_id'] = $this->get ( 'config_id' );
+			// Debug info
+			$data_input ['debug'] = $this->get ( 'debug' );
+			if ($data_input ['debug'] == 'debug') {
+				$this->data_result ['debug'] ['input'] = &$data_input;
+				$this->data_result ['debug'] ['cache'] = &$data_cache;
+			}
 			if ($data_input ['debug'] == 'debug') {
 				$this->data_result ['debug'] ['input'] = &$data_input;
 				$this->data_result ['debug'] ['cache'] = &$data_cache;
@@ -102,11 +107,12 @@ class Votes extends MY_REST_Controller {
 			// 接收變數
 			$data_input ['date'] = date ( 'Y-m-d' );
 			$data_input ['now_datetime'] = date ( 'Y-m-d H:i:s' );
-			$data_input ['debug'] = $this->post ( 'debug' );
 			$data_input ['random'] = $this->post ( 'random' );
 			$data_input ['token'] = $this->post ( 'token' );
 			$data_input ['config_id'] = $this->post ( 'config_id' );
 			$data_input ['item_id'] = $this->post ( 'item_id' );
+			// Debug info
+			$data_input ['debug'] = $this->post ( 'debug' );
 			if ($data_input ['debug'] == 'debug') {
 				$this->data_result ['debug'] ['input'] = &$data_input;
 				$this->data_result ['debug'] ['cache'] = &$data_cache;
