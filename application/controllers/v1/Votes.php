@@ -185,10 +185,10 @@ class Votes extends MY_REST_Controller {
 				return;
 			}
 			// cache name key
-			$data_cache ['name'] = sprintf ( '%s_event_vote_%s', ENVIRONMENT, $date_user->uid );
+			$data_cache ['user_name'] = sprintf ( '%s_event_vote_user_%s', ENVIRONMENT, $date_user->uid );
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
-			$data_cache [$data_cache ['name']] = $this->cache->memcached->get ( $data_cache ['name'] );
-			if ($data_cache [$data_cache ['name']] != false && isset ( $data_cache [$data_cache ['name']] [$data_input ['date']] )) {
+			$data_cache [$data_cache ['user_name']] = $this->cache->memcached->get ( $data_cache ['user_name'] );
+			if ($data_cache [$data_cache ['user_name']] != false && isset ( $data_cache [$data_cache ['user_name']] [$data_input ['date']] )) {
 				// 今天投票過
 				$this->data_result ['message'] = $this->lang->line ( 'event_repeat' );
 				$this->data_result ['code'] = $this->config->item ( 'event_repeat' );
@@ -214,14 +214,14 @@ class Votes extends MY_REST_Controller {
 			);
 			$status = $this->event_vote_select_model->insert_data ( $data_post );
 			if ($status == true) {
-				if(isset($data_cache [$data_cache ['name']] [$data_input ['date']])){
-					$data_cache [$data_cache ['name']] [$data_input ['date']] = $data_cache [$data_cache ['name']] [$data_input ['date']] + 1;
-				}else{
-					$data_cache [$data_cache ['name']] [$data_input ['date']] = 1;
+				if (isset ( $data_cache [$data_cache ['user_name']] [$data_input ['date']] )) {
+					$data_cache [$data_cache ['user_name']] [$data_input ['date']] = $data_cache [$data_cache ['user_name']] [$data_input ['date']] + 1;
+				} else {
+					$data_cache [$data_cache ['user_name']] [$data_input ['date']] = 1;
 				}
 			}
 			// 紀錄
-			$status = $this->cache->memcached->save ( $data_cache ['name'], $data_cache [$data_cache ['name']], 90000 ); // 25小時90000秒
+			$status = $this->cache->memcached->save ( $data_cache ['user_name'], $data_cache [$data_cache ['user_name']], 90000 ); // 25小時90000秒
 			$info = $this->cache->memcached->cache_info ();
 			// 結束時間標記
 			$this->benchmark->mark ( 'code_end' );
