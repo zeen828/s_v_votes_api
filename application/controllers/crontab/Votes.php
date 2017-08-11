@@ -103,6 +103,9 @@ class Votes extends CI_Controller {
 							'config_id' => $value->id,
 							'title' => $value->title,
 							'des' => $value->des,
+							'login'=>$value->login_where,
+							'vote'=>$value->vote_where,
+							'vote_int'=>$value->vote_int,
 							'start' => $value->start_at,
 							'end' => $value->end_at,
 							'item' => array () 
