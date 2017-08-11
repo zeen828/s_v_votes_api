@@ -42,16 +42,18 @@ class Votes extends CI_Controller {
 						foreach ( $query_item->result () as $row_item ) {
 							// print_r($row_item);
 							// 票數
-							$status = $this->event_vote_item_model->update_item_ticket($row_config->id, $row_item->id);
+							$status = $this->event_vote_item_model->update_item_ticket ( $row_config->id, $row_item->id );
 							echo $row_config->title, ' - ', $row_item->title, ' - ', '票數統計[', $status, ']<br/>';
 							// 得票率
 							$ticket_sum = $row_item->ticket + $row_item->ticket_add;
-							if(empty($ticket_total) || empty($ticket_sum)){
+							if (empty ( $ticket_total ) || empty ( $ticket_sum )) {
 								$proportion = '0.00';
-							}else{
-								$proportion = ( $ticket_sum / $ticket_total ) * 100;
+							} else {
+								$proportion = ($ticket_sum / $ticket_total) * 100;
 							}
-							$status = $this->event_vote_item_model->update_data($row_item->id, array( 'proportion'=>$proportion,));
+							$status = $this->event_vote_item_model->update_data ( $row_item->id, array (
+									'proportion' => $proportion 
+							) );
 							echo $row_config->title, ' - ', $row_item->title, ' - ', '得票率統計[', $status, ']<br/>';
 							// print_r($proportion);
 							unset ( $proportion );
@@ -103,9 +105,9 @@ class Votes extends CI_Controller {
 							'config_id' => $value->id,
 							'title' => $value->title,
 							'des' => $value->des,
-							'login'=>$value->login_where,
-							'vote'=>$value->vote_where,
-							'vote_int'=>$value->vote_int,
+							'login' => $value->login_where,
+							'vote' => $value->vote_where,
+							'vote_int' => $value->vote_int,
 							'start' => $value->start_at,
 							'end' => $value->end_at,
 							'item' => array () 

@@ -203,7 +203,10 @@ class Votes extends MY_REST_Controller {
 					'minute_at' => date ( 'i' ),
 					'created_at' => $data_input ['now_datetime'] 
 			);
-			$data_cache [$data_cache ['name']] [$data_input ['date']] = $this->event_vote_select_model->insert_data ( $data_post );
+			$status = $this->event_vote_select_model->insert_data ( $data_post );
+			if ($status == true) {
+				$data_cache [$data_cache ['name']] [$data_input ['date']] = $data_cache [$data_cache ['name']] [$data_input ['date']] + 1;
+			}
 			// 紀錄
 			$status = $this->cache->memcached->save ( $data_cache ['name'], $data_cache [$data_cache ['name']], 90000 ); // 25小時90000秒
 			$info = $this->cache->memcached->cache_info ();
