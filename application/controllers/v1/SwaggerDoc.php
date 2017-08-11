@@ -105,7 +105,7 @@ class SwaggerDoc extends CI_Controller {
 																				"description" => "訊息" 
 																		),
 																		"time" => array (
-																				"type" => "string",
+																				"type" => "integer",
 																				"description" => "耗費時間" 
 																		) 
 																) 
@@ -197,7 +197,7 @@ class SwaggerDoc extends CI_Controller {
 																				"description" => "訊息" 
 																		),
 																		"time" => array (
-																				"type" => "string",
+																				"type" => "integer",
 																				"description" => "耗費時間" 
 																		) 
 																) 
@@ -268,7 +268,7 @@ class SwaggerDoc extends CI_Controller {
 																				"description" => "訊息" 
 																		),
 																		"time" => array (
-																				"type" => "string",
+																				"type" => "integer",
 																				"description" => "耗費時間" 
 																		) 
 																) 
@@ -352,7 +352,7 @@ class SwaggerDoc extends CI_Controller {
 																				"description" => "訊息" 
 																		),
 																		"time" => array (
-																				"type" => "string",
+																				"type" => "integer",
 																				"description" => "耗費時間" 
 																		) 
 																) 
