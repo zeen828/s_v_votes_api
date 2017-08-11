@@ -51,7 +51,7 @@ $config['rest_supported_formats'] = [
     'jsonp',
     'php',
     'serialized',
-    'xml',
+    //'xml',
 ];
 
 /*
