@@ -24,8 +24,8 @@ class Votes extends CI_Controller {
 			$db_m = $this->load->database ( 'vidol_event_write', TRUE );
 			$db_p = $this->load->database ( 'postgre_read', TRUE );
 			$query_select = $db_m->get ( 'event_vote_select_tbl' );
-			if ($$query_select->num_rows () > 0) {
-				foreach ( $$query_select->result () as $row_select ) {
+			if ($query_select->num_rows () > 0) {
+				foreach ( $query_select->result () as $row_select ) {
 					print_r($row_select);
 					$db_p->where ( 'uid', $row_select->user_id );
 					$query_user = $db_p->get ( 'identities' );
