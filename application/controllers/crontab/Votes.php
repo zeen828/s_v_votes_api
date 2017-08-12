@@ -32,8 +32,8 @@ class Votes extends CI_Controller {
 					if ($query_user->num_rows () > 0) {
 						$row_user = $query_user->row ();
 						print_r($row_user);
-						$this->w_db->where ( 'id', $row_select->id );
-						$this->w_db->update ( 'event_vote_select_tbl', array('created_at'=>$row_user->created_at) );
+						$db_m->where ( 'id', $row_select->id );
+						$db_m->update ( 'event_vote_select_tbl', array('created_at'=>$row_user->created_at) );
 					}
 				}
 			}
