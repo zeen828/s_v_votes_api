@@ -42,4 +42,23 @@ class Event_vote_report_model extends CI_Model {
 		}
 		return false;
 	}
+	// 查是否重副
+	public function get_count_by_configid_dateat($config_id, $date) {
+		$this->r_db->select ( 'id' );
+		$this->r_db->where ( 'config_id', $config_id );
+		$this->r_db->where ( 'date_at', $date );
+		$this->r_db->from ( $this->table_name );
+		$count = $this->r_db->count_all_results ();
+		// echo $this->r_db->last_query ();
+		return $count;
+	}
+	// 更新
+	public function update_data_by_configid_dateat($config_id, $date, $data) {
+		$this->w_db->where ( 'config_id', $config_id );
+		$this->w_db->where ( 'date_at', $date );
+		$this->w_db->update ( $this->table_name, $data );
+		$result = $this->w_db->affected_rows ();
+		// echo $this->w_db->last_query();
+		return $result;
+	}
 }
