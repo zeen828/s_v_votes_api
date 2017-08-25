@@ -203,7 +203,7 @@ class Votes extends MY_REST_Controller {
 					'config_id' => $data_input ['config_id'],
 					'item_id' => $data_input ['item_id'],
 					'user_id' => $date_user->uid,
-					'user_updated_at' => $date_user->uid,
+					'user_created_at' => $date_user->created_at,
 					'ticket' => 1,
 					'year_at' => date ( 'Y' ),
 					'month_at' => date ( 'm' ),

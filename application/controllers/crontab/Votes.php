@@ -19,6 +19,31 @@ class Votes extends CI_Controller {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
+	public function user_data() {
+		try {
+			$db_m = $this->load->database ( 'vidol_event_write', TRUE );
+			$db_p = $this->load->database ( 'postgre_read', TRUE );
+			$query_select = $db_m->get ( 'event_vote_select_tbl' );
+			//echo $db_m->last_query();
+			if ($query_select->num_rows () > 0) {
+				foreach ( $query_select->result () as $row_select ) {
+					//print_r($row_select);
+					$db_p->where ( 'uid', $row_select->user_id );
+					$query_user = $db_p->get ( 'identities' );
+					//echo $db_p->last_query();
+					if ($query_user->num_rows () > 0) {
+						$row_user = $query_user->row ();
+						//print_r($row_user);
+						$db_m->where ( 'id', $row_select->id );
+						$db_m->update ( 'event_vote_select_tbl', array('user_created_at'=>$row_user->created_at) );
+						//echo $db_m->last_query();
+					}
+				}
+			}
+		} catch ( Exception $e ) {
+			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
+		}
+	}
 	// 得票運算
 	public function update_vote_item() {
 		try {
