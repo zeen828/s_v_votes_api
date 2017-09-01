@@ -1,14 +1,14 @@
 <?php
 defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 ini_set ( "display_errors", "On" ); // On, Off
+header ( 'Access-Control-Allow-Origin: *' );
+header ( 'Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS' );
+header( 'Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept' );
 require_once APPPATH . '/libraries/MY_REST_Controller.php';
 class Auth extends MY_REST_Controller {
 	private $data_debug;
 	private $data_result;
 	public function __construct() {
-		header ( 'Access-Control-Allow-Origin: *' );
-		header ( 'Access-Control-Allow-Headers: X-Requested-With' );
-		header ( 'Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS' );
 		parent::__construct ();
 		$this->_my_logs_start = true;
 		$this->_my_logs_type = 'auth';
