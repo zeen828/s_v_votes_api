@@ -51,12 +51,6 @@ class Votes extends MY_REST_Controller {
 				$this->data_result ['debug'] ['input'] = &$data_input;
 				$this->data_result ['debug'] ['cache'] = &$data_cache;
 			}
-			if ($data_input ['debug'] == 'debug') {
-				$this->data_result ['debug'] ['input'] = &$data_input;
-				$this->data_result ['debug'] ['cache'] = &$data_cache;
-				$this->data_result ['debug'] ['config'] = &$date_config;
-				$this->data_result ['debug'] ['user'] = &$date_user;
-			}
 			// 必填檢查
 			if (empty ( $data_input ['config_id'] )) {
 				// 必填錯誤

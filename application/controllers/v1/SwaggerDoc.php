@@ -35,6 +35,10 @@ class SwaggerDoc extends CI_Controller {
 						array (
 								"name" => "2.Vote",
 								"description" => "2.投票" 
+						),
+						array (
+								"name" => "3.Page",
+								"description" => "3.頁面" 
 						) 
 				),
 				"schemes" => array (
@@ -360,6 +364,64 @@ class SwaggerDoc extends CI_Controller {
 												),
 												"401" => array (
 														"description" => "會員登入錯誤" 
+												),
+												"403" => array (
+														"description" => "token未授權" 
+												),
+												"416" => array (
+														"description" => "傳遞資料錯誤" 
+												) 
+										) 
+								) 
+						),
+						"/pages/load" => array (
+								"get" => array (
+										"tags" => array (
+												"3.Page" 
+										),
+										"summary" => "讀取中繼頁",
+										"description" => "讀取中繼頁",
+										"parameters" => array (
+												array (
+														"name" => "Authorization",
+														"description" => "token",
+														"in" => "header",
+														"type" => "string",
+														"required" => TRUE 
+												),
+												array (
+														"name" => "debug",
+														"description" => "除錯用多列印出取得資料變數",
+														"in" => "query",
+														"type" => "string",
+														"enum" => array (
+																'debug' 
+														) 
+												) 
+										),
+										"responses" => array (
+												"200" => array (
+														"description" => "成功",
+														"schema" => array (
+																"title" => "result",
+																"type" => "object",
+																"description" => "api result data",
+																"properties" => array (
+																		"result" => $this->__get_responses_data ( "vote_config_info" ),
+																		"code" => array (
+																				"type" => "string",
+																				"description" => "狀態碼" 
+																		),
+																		"message" => array (
+																				"type" => "string",
+																				"description" => "訊息" 
+																		),
+																		"time" => array (
+																				"type" => "integer",
+																				"description" => "耗費時間" 
+																		) 
+																) 
+														) 
 												),
 												"403" => array (
 														"description" => "token未授權" 
