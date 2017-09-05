@@ -25,7 +25,7 @@ class Pages extends CI_Controller {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
 			// 引入
-			$this->load->model ( 'vidol_event/event_vote_config_model' );
+			//$this->load->model ( 'vidol_event/event_vote_config_model' );
 			$this->load->driver ( 'cache', array (
 					'adapter' => 'memcached',
 					'backup' => 'dummy' 
@@ -35,11 +35,48 @@ class Pages extends CI_Controller {
 			// cache name key
 			$data_cache ['name'] = sprintf ( '%s_load_page', ENVIRONMENT );
 			$data_cache [$data_cache ['name']] = array (
-					'id' => '',
-					'title' => '',
-					'des' => '',
-					'image' => '',
-					'url' => '' 
+					array (
+							'id' => '',
+							'title' => '',
+							'des' => '',
+							'image' => '',
+							'url' => '' 
+					),
+					array (
+							'id' => '',
+							'title' => '',
+							'des' => '',
+							'image' => '',
+							'url' => '' 
+					),
+					array (
+							'id' => '',
+							'title' => '',
+							'des' => '',
+							'image' => '',
+							'url' => '' 
+					),
+					array (
+							'id' => '',
+							'title' => '',
+							'des' => '',
+							'image' => '',
+							'url' => '' 
+					),
+					array (
+							'id' => '',
+							'title' => '',
+							'des' => '',
+							'image' => '',
+							'url' => '' 
+					),
+					array (
+							'id' => '',
+							'title' => '',
+							'des' => '',
+							'image' => '',
+							'url' => '' 
+					) 
 			);
 			// 紀錄
 			$status = $this->cache->memcached->save ( $data_cache ['name'], $data_cache [$data_cache ['name']], 90000 );
