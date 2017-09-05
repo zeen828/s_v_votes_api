@@ -25,7 +25,6 @@ class Pages extends CI_Controller {
 			// 開始時間標記
 			$this->benchmark->mark ( 'code_start' );
 			// 引入
-			//$this->load->model ( 'vidol_event/event_vote_config_model' );
 			$this->load->driver ( 'cache', array (
 					'adapter' => 'memcached',
 					'backup' => 'dummy' 
@@ -88,7 +87,7 @@ class Pages extends CI_Controller {
 			// 標記時間計算
 			$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'code_end' );
 			//
-			$this->output->set_content_type ( 'application/json' )->set_output ( json_encode ( $this->data_result ) );
+			//$this->output->set_content_type ( 'application/json' )->set_output ( json_encode ( $this->data_result ) );
 		} catch ( Exception $e ) {
 			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
 		}
