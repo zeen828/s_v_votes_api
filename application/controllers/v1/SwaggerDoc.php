@@ -377,7 +377,7 @@ class SwaggerDoc extends CI_Controller {
 						"/pages/landing" => array (
 								"get" => array (
 										"tags" => array (
-												"3.Page"
+												"3.Page" 
 										),
 										"summary" => "讀取登入頁",
 										"description" => "讀取登入頁",
@@ -387,7 +387,7 @@ class SwaggerDoc extends CI_Controller {
 														"description" => "token",
 														"in" => "header",
 														"type" => "string",
-														"required" => TRUE
+														"required" => TRUE 
 												),
 												array (
 														"name" => "debug",
@@ -395,9 +395,9 @@ class SwaggerDoc extends CI_Controller {
 														"in" => "query",
 														"type" => "string",
 														"enum" => array (
-																'debug'
-														)
-												)
+																'debug' 
+														) 
+												) 
 										),
 										"responses" => array (
 												"200" => array (
@@ -410,86 +410,28 @@ class SwaggerDoc extends CI_Controller {
 																		"result" => $this->__get_responses_data ( "vote_config_info" ),
 																		"code" => array (
 																				"type" => "string",
-																				"description" => "狀態碼"
+																				"description" => "狀態碼" 
 																		),
 																		"message" => array (
 																				"type" => "string",
-																				"description" => "訊息"
+																				"description" => "訊息" 
 																		),
 																		"time" => array (
 																				"type" => "integer",
-																				"description" => "耗費時間"
-																		)
-																)
-														)
+																				"description" => "耗費時間" 
+																		) 
+																) 
+														) 
 												),
 												"403" => array (
-														"description" => "token未授權"
+														"description" => "token未授權" 
 												),
 												"416" => array (
-														"description" => "傳遞資料錯誤"
-												)
-										)
-								)
-						),
-						"/pages/load" => array (
-								"get" => array (
-										"tags" => array (
-												"3.Page"
-										),
-										"summary" => "讀取中繼頁",
-										"description" => "讀取中繼頁",
-										"parameters" => array (
-												array (
-														"name" => "Authorization",
-														"description" => "token",
-														"in" => "header",
-														"type" => "string",
-														"required" => TRUE
-												),
-												array (
-														"name" => "debug",
-														"description" => "除錯用多列印出取得資料變數",
-														"in" => "query",
-														"type" => "string",
-														"enum" => array (
-																'debug'
-														)
-												)
-										),
-										"responses" => array (
-												"200" => array (
-														"description" => "成功",
-														"schema" => array (
-																"title" => "result",
-																"type" => "object",
-																"description" => "api result data",
-																"properties" => array (
-																		"result" => $this->__get_responses_data ( "vote_config_info" ),
-																		"code" => array (
-																				"type" => "string",
-																				"description" => "狀態碼"
-																		),
-																		"message" => array (
-																				"type" => "string",
-																				"description" => "訊息"
-																		),
-																		"time" => array (
-																				"type" => "integer",
-																				"description" => "耗費時間"
-																		)
-																)
-														)
-												),
-												"403" => array (
-														"description" => "token未授權"
-												),
-												"416" => array (
-														"description" => "傳遞資料錯誤"
-												)
-										)
-								)
-						),
+														"description" => "傳遞資料錯誤" 
+												) 
+										) 
+								) 
+						) 
 				) 
 		);
 		$this->output->set_content_type ( "application/json" );
