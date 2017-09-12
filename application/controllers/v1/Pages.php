@@ -68,4 +68,44 @@ class Pages extends MY_REST_Controller {
 			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
 		}
 	}
+	public function landing_cached_get() {
+		try {
+			// 開始時間標記
+			$this->benchmark->mark ( 'code_start' );
+			// 引入
+			$this->load->model ( 'vidol_event/page_landing_model' );
+			$this->load->driver ( 'cache', array (
+					'adapter' => 'memcached',
+					'backup' => 'dummy'
+			) );
+			// 變數
+			$data_cache = array ();
+			// cache name key
+			$data_cache ['name'] = sprintf ( '%s_landing_page', ENVIRONMENT );
+			$query = $this->page_landing_model->get_query_limit ( '*', '30' );
+			if ($query->num_rows () > 0) {
+				foreach ( $query->result () as $row ) {
+					$data_cache [$data_cache ['name']] [$row->position] [] = array (
+							'id' => $row->id,
+							'title' => $row->title,
+							'des' => $row->des,
+							'image' => $row->image,
+							'url' => $row->url
+					);
+				}
+			}
+			// 紀錄
+			$status = $this->cache->memcached->save ( $data_cache ['name'], $data_cache [$data_cache ['name']], 90000 );
+			$info = $this->cache->memcached->cache_info ();
+			//
+			unset ( $data_cache );
+			// 結束時間標記
+			$this->benchmark->mark ( 'code_end' );
+			// 標記時間計算
+			$this->data_result ['time'] = $this->benchmark->elapsed_time ( 'code_start', 'code_end' );
+			$this->response ( $this->data_result, 200 );
+		} catch ( Exception $e ) {
+			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
+		}
+	}
 }
