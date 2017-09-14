@@ -154,7 +154,7 @@ class SwaggerDoc extends CI_Controller {
 												),
 												array (
 														"name" => "uid",
-														"description" => "Uid",
+														"description" => "Facebook Uid",
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 

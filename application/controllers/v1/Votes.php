@@ -192,21 +192,29 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 405 );
 				return;
 			}
-			// 投票資料
-			$data_post = array (
-					'config_id' => $data_input ['config_id'],
-					'item_id' => $data_input ['item_id'],
-					'user_id' => $date_user->uid,
-					'user_created_at' => $date_user->created_at,
-					'ticket' => 1,
-					'year_at' => date ( 'Y' ),
-					'month_at' => date ( 'm' ),
-					'day_at' => date ( 'd' ),
-					'hour_at' => date ( 'h' ),
-					'minute_at' => date ( 'i' ),
-					'created_at' => $data_input ['now_datetime'] 
-			);
-			$status = $this->event_vote_select_model->insert_data ( $data_post );
+			//切字
+			$status = false;
+			$items = explode(',', $data_input ['item_id']);
+			foreach ($items as $key=>$item_id){
+				// 投票資料
+				$data_post = array (
+						'config_id' => $data_input ['config_id'],
+						'data_no' => $key,
+						'item_id' => $item_id,
+						'user_id' => $date_user->uid,
+						'user_created_at' => $date_user->created_at,
+						'ticket' => 1,
+						'year_at' => date ( 'Y' ),
+						'month_at' => date ( 'm' ),
+						'day_at' => date ( 'd' ),
+						'hour_at' => date ( 'h' ),
+						'minute_at' => date ( 'i' ),
+						'created_at' => $data_input ['now_datetime']
+				);
+				// 寫入資料庫
+				$status = $this->event_vote_select_model->insert_data ( $data_post );
+			}
+			// 記錄會員已投票過次數
 			if ($status == true) {
 				if (isset ( $data_cache [$data_cache ['user_name']] [$data_input ['date']] )) {
 					$data_cache [$data_cache ['user_name']] [$data_input ['date']] = $data_cache [$data_cache ['user_name']] [$data_input ['date']] + 1;

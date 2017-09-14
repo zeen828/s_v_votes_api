@@ -44,7 +44,9 @@ class Votes extends CI_Controller {
 			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
 		}
 	}
-	// 得票運算
+	/**
+	 * 排程  得票運算
+	 */
 	public function update_vote_item() {
 		try {
 			// 開始時間標記
@@ -143,6 +145,7 @@ class Votes extends CI_Controller {
 							$data_cache [$cache_name] ['item'] [] = array (
 									'item_id' => $row->id,
 									'group_no' => $row->group_no,
+									'group_title' => $row->group_title,
 									'sort' => $row->sort,
 									'title' => $row->title,
 									'des' => $row->des,
