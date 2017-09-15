@@ -323,7 +323,7 @@ class SwaggerDoc extends CI_Controller {
 												),
 												array (
 														"name" => "item_id",
-														"description" => "項目ID",
+														"description" => "項目ID(接受複數逗號區隔1,2,3)",
 														"in" => "formData",
 														"type" => "string",
 														"required" => TRUE 
