@@ -44,8 +44,8 @@ class Votes extends CI_Controller {
 							unset ( $row_group_sum );
 						}
 					}
-					print_r($ticket_total);
 					unset ( $query_group_sum );
+					print_r($ticket_total);
 					// 取得config_id活動項目
 					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $row_config->id );
 					if ($query_item->num_rows () > 0) {
