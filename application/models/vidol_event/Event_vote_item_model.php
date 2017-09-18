@@ -61,10 +61,7 @@ class Event_vote_item_model extends CI_Model {
 		$this->r_db->group_by ( array('config_id', 'group_no') );
 		$query = $this->r_db->get ( $this->table_name );
 		// echo $this->r_db->last_query();
-		if ($query->num_rows () > 0) {
-			return $query->row ();
-		}
-		return false;
+		return $query;
 	}
 	// 更新項目得票總票數
 	public function update_item_ticket($config_id, $time_id) {

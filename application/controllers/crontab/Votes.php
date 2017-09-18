@@ -35,8 +35,12 @@ class Votes extends CI_Controller {
 				foreach ( $query_config->result () as $row_config ) {
 					// print_r($row_config);
 					// 算得票比例用
-					$sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $row_config->id );
-					print_r($sum);
+					$query_group_sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $row_config->id );
+					if ($query_group_sum->num_rows () > 0) {
+						foreach ( $query_group_sum->result () as $row_group_sum ) {
+							print_r($row_group_sum);
+						}
+					}
 					// 該活動總票數
 					$ticket_total = $sum->sum_ticket + $sum->sum_ticket_add;
 					// 取得config_id活動項目
