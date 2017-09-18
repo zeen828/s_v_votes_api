@@ -38,11 +38,12 @@ class Votes extends CI_Controller {
 					$query_group_sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $row_config->id );
 					if ($query_group_sum->num_rows () > 0) {
 						foreach ( $query_group_sum->result () as $row_group_sum ) {
-							print_r($row_group_sum);
+							// group總票數
+							$ticket_total [$row_group_sum->group_no] = $row_group_sum->sum_ticket + $row_group_sum->sum_ticket_add;
+							unset ( $row_group_sum );
 						}
 					}
-					// 該活動總票數
-					$ticket_total = $sum->sum_ticket + $sum->sum_ticket_add;
+					unset ( $query_group_sum );
 					// 取得config_id活動項目
 					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $row_config->id );
 					if ($query_item->num_rows () > 0) {
@@ -53,7 +54,7 @@ class Votes extends CI_Controller {
 							echo $row_config->title, ' - ', $row_item->title, ' - ', '票數統計[', $status, ']<br/>';
 							// 得票率
 							$ticket_sum = $row_item->ticket + $row_item->ticket_add;
-							if (empty ( $ticket_total ) || empty ( $ticket_sum )) {
+							if (! isset ( $ticket_total [$query_item->group_no] ) || empty ( $ticket_total [$query_item->group_no] ) || empty ( $ticket_sum )) {
 								$proportion = '0.00';
 							} else {
 								$proportion = ($ticket_sum / $ticket_total) * 100;
