@@ -19,33 +19,8 @@ class Votes extends CI_Controller {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
-	public function user_data() {
-		try {
-			$db_m = $this->load->database ( 'vidol_event_write', TRUE );
-			$db_p = $this->load->database ( 'postgre_read', TRUE );
-			$query_select = $db_m->get ( 'event_vote_select_tbl' );
-			//echo $db_m->last_query();
-			if ($query_select->num_rows () > 0) {
-				foreach ( $query_select->result () as $row_select ) {
-					//print_r($row_select);
-					$db_p->where ( 'uid', $row_select->user_id );
-					$query_user = $db_p->get ( 'identities' );
-					//echo $db_p->last_query();
-					if ($query_user->num_rows () > 0) {
-						$row_user = $query_user->row ();
-						//print_r($row_user);
-						$db_m->where ( 'id', $row_select->id );
-						$db_m->update ( 'event_vote_select_tbl', array('user_created_at'=>$row_user->created_at) );
-						//echo $db_m->last_query();
-					}
-				}
-			}
-		} catch ( Exception $e ) {
-			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
-		}
-	}
 	/**
-	 * 排程  得票運算
+	 * 更新項目票數
 	 */
 	public function update_vote_item() {
 		try {
@@ -61,6 +36,7 @@ class Votes extends CI_Controller {
 					// print_r($row_config);
 					// 算得票比例用
 					$sum = $this->event_vote_item_model->get_item_sum_row_by_configid_status_group ( $row_config->id );
+					print_r($sum);
 					// 該活動總票數
 					$ticket_total = $sum->sum_ticket + $sum->sum_ticket_add;
 					// 取得config_id活動項目
@@ -100,7 +76,9 @@ class Votes extends CI_Controller {
 			show_error ( $e->getMessage () . ' --- ' . $e->getTraceAsString () );
 		}
 	}
-	// 建立暫存
+	/**
+	 * 資料做cached
+	 */
 	public function cached() {
 		try {
 			// 開始時間標記

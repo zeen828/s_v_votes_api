@@ -19,7 +19,9 @@ class Pages extends CI_Controller {
 		unset ( $this->data_debug );
 		unset ( $this->data_result );
 	}
-	// 建立暫存
+	/**
+	 * 資料做cached
+	 */
 	public function landing_cached() {
 		try {
 			// 開始時間標記
