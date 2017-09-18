@@ -56,10 +56,10 @@ class Votes extends CI_Controller {
 							echo $row_config->title, ' - ', $row_item->title, ' - ', '票數統計[', $status, ']<br/>';
 							// 得票率
 							$ticket_sum = $row_item->ticket + $row_item->ticket_add;
-							if (! isset ( $ticket_total [$query_item->group_no] ) || empty ( $ticket_total [$query_item->group_no] ) || empty ( $ticket_sum )) {
+							if (! isset ( $ticket_total [$row_item->group_no] ) || empty ( $ticket_total [$row_item->group_no] ) || empty ( $ticket_sum )) {
 								$proportion = '0.00';
 							} else {
-								$proportion = ($ticket_sum / $ticket_total [$query_item->group_no]) * 100;
+								$proportion = ($ticket_sum / $ticket_total [$row_item->group_no]) * 100;
 							}
 							$status = $this->event_vote_item_model->update_data ( $row_item->id, array (
 									'proportion' => $proportion 
