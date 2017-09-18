@@ -48,7 +48,7 @@ class Votes extends CI_Controller {
 					$query_item = $this->event_vote_item_model->get_item_by_configid_status_sort ( '*', $row_config->id );
 					if ($query_item->num_rows () > 0) {
 						foreach ( $query_item->result () as $row_item ) {
-							// print_r($row_item);
+							print_r ( $row_item );
 							// 票數
 							$status = $this->event_vote_item_model->update_item_ticket ( $row_config->id, $row_item->id );
 							echo $row_config->title, ' - ', $row_item->title, ' - ', '票數統計[', $status, ']<br/>';
@@ -57,7 +57,7 @@ class Votes extends CI_Controller {
 							if (! isset ( $ticket_total [$query_item->group_no] ) || empty ( $ticket_total [$query_item->group_no] ) || empty ( $ticket_sum )) {
 								$proportion = '0.00';
 							} else {
-								$proportion = ($ticket_sum / $ticket_total) * 100;
+								$proportion = ($ticket_sum / $ticket_total [$query_item->group_no]) * 100;
 							}
 							$status = $this->event_vote_item_model->update_data ( $row_item->id, array (
 									'proportion' => $proportion 
