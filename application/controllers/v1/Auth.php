@@ -63,7 +63,7 @@ class Auth extends MY_REST_Controller {
 			$datetime = substr ( time (), 0, 10 );
 			$from_datetime = substr ( $data_input ['random'], 0, 10 );
 			$time_gap = $datetime - $from_datetime;
-			if ($time_gap > 120) {
+			if ($time_gap > 300) {
 				// 預時120秒
 				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
 				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
@@ -135,7 +135,7 @@ class Auth extends MY_REST_Controller {
 			$datetime = substr ( time (), 0, 10 );
 			$from_datetime = substr ( $data_input ['random'], 0, 10 );
 			$time_gap = $datetime - $from_datetime;
-			if ($time_gap > 120) {
+			if ($time_gap > 300) {
 				// 預時120秒
 				$this->data_result ['message'] = $this->lang->line ( 'system_time_out' );
 				$this->data_result ['code'] = $this->config->item ( 'system_time_out' );
