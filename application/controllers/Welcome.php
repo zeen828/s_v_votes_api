@@ -28,5 +28,7 @@ class Welcome extends CI_Controller {
 		$this->load->model ( 'mongo/mongo_users_model' );
 		$user = $this->mongo_users_model->get_mongo_id_by_member_id('vQUp2skqcF');
 		print_r($user);
+		$user = $this->mongo_users_model->get_member_id_by_mongo_id('vQUp2skqcF');
+		print_r($user);
 	}
 }

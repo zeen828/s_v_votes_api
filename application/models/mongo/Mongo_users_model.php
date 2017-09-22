@@ -15,4 +15,10 @@ class Mongo_users_model extends CI_Model {
 		) )->get ( '_User' );
 		return $user;
 	}
+	public function get_member_id_by_mongo_id($mongo_id) {
+		$user = $this->mongo_db->where ( array (
+				'_id' => $mongo_id
+		) )->get ( '_User' );
+		return $user;
+	}
 }
