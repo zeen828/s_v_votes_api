@@ -5,14 +5,14 @@ class Mongo_users_model extends CI_Model {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->library ( 'mongo_db' );
-		// $this->r_db = $this->load->library('mongo_db');
 	}
 	public function __destruct() {
-		// unset ( $this->r_db );
 		// parent::__destruct();
 	}
-	public function test() {
-		$user_count = $this->mongo_db->count ( '_User' );
-		echo $user_count;
+	public function get_mongo_id_by_member_id($member_id) {
+		$user = $this->mongo_db->where ( array (
+				'member_id' => $member_id 
+		) )->get ( '_User' );
+		return $user;
 	}
 }
