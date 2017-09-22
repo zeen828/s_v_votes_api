@@ -83,6 +83,7 @@ class Votes extends MY_REST_Controller {
 			$this->benchmark->mark ( 'code_start' );
 			// 引入
 			$this->config->load ( 'restful_status_code' );
+			$this->load->model ( 'mongo/mongo_users_model' );
 			$this->load->model ( 'postgre/token_model' );
 			$this->load->model ( 'vidol_event/event_vote_select_model' );
 			$this->lang->load ( 'restful_status_lang', 'traditional-chinese' );
@@ -178,6 +179,7 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
+			$date_mongo_user = $this->mongo_users_model->get_member_id_by_mongo_id($date_user->uid);
 			// cache name key
 			$data_cache ['user_name'] = sprintf ( '%s_event_vote_%s_user_%s', ENVIRONMENT, $data_input ['config_id'], $date_user->uid );
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
@@ -201,8 +203,8 @@ class Votes extends MY_REST_Controller {
 						'config_id' => $data_input ['config_id'],
 						'data_no' => $key,
 						'item_id' => $item_id,
-						'mongo_id' => $date_user->uid,
-						'member_id' => $date_user->uid,
+						'mongo_id' => $date_mongo_user->_id,
+						'member_id' => $date_mongo_user->member_id,
 						'user_created_at' => $date_user->created_at,
 						'ticket' => 1,
 						'year_at' => date ( 'Y' ),

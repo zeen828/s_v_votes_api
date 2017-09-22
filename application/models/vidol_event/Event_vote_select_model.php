@@ -75,7 +75,7 @@ class Event_vote_select_model extends CI_Model {
 		$this->r_db->where ( 'config_id', $config_id );
 		$this->r_db->where ( 'data_no', '0' );
 		$this->r_db->where ( 'created_at <', $end_date );
-		$this->r_db->group_by ( 'user_id' );
+		$this->r_db->group_by ( 'mongo_id' );
 		$this->r_db->order_by ( 'created_at', 'ASC' );
 		$sql = $this->r_db->get_compiled_select ( $this->table_name );
 		// $sql = sprintf("SELECT count(*) FROM ( %s ) as t WHERE count_no = 1 AND created_at >= '%s' AND created_at < '%s' ", $sql, $start_date, $end_date);
@@ -95,7 +95,7 @@ class Event_vote_select_model extends CI_Model {
 		$this->r_db->where ( 'config_id', $config_id );
 		$this->r_db->where ( 'data_no', '0' );
 		$this->r_db->where ( 'created_at <', $end_date );
-		$this->r_db->group_by ( 'user_id' );
+		$this->r_db->group_by ( 'mongo_id' );
 		$this->r_db->order_by ( 'created_at', 'ASC' );
 		$this->r_db->from ( $this->table_name );
 		$count = $this->r_db->count_all_results ();
