@@ -22,4 +22,10 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+	
+	public function test()
+	{
+		$this->load->model ( 'mongo/mongo_users_model' );
+		$this->mongo_users_model->test();
+	}
 }
