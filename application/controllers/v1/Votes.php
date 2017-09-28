@@ -3,7 +3,7 @@ defined ( 'BASEPATH' ) or exit ( 'No direct script access allowed' );
 ini_set ( "display_errors", "On" ); // On, Off
 header ( 'Access-Control-Allow-Origin: *' );
 header ( 'Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS' );
-header( 'Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept' );
+header ( 'Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept' );
 require_once APPPATH . '/libraries/MY_REST_Controller.php';
 class Votes extends MY_REST_Controller {
 	private $data_debug;
@@ -94,8 +94,9 @@ class Votes extends MY_REST_Controller {
 			// 變數
 			$data_input = array ();
 			$data_cache = array ();
-			$date_user = false;
-			$date_config = false;
+			$date_config = false; // 投票活動設定
+			$date_user = false; // 會員資料
+			$date_mongo_user = false; // 完整會員資料
 			$this->data_result = array (
 					'result' => array (),
 					'code' => $this->config->item ( 'system_default' ),
@@ -155,8 +156,8 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
-			// 有無過期
 			$date_config = $data_cache [$data_cache ['config_name']];
+			// 5.有無過期超過活動時間
 			if ($date_config ['start'] > $data_input ['now_datetime'] || $data_input ['now_datetime'] > $date_config ['end']) {
 				// 活動尚未開始
 				$this->data_result ['message'] = $this->lang->line ( 'system_expired' );
@@ -167,7 +168,7 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
-			// 取得token轉換user資料
+			// 6.取得token轉換user資料
 			$date_user = $this->token_model->get_user_row_by_token ( 'identities.*', $data_input ['token'] );
 			if ($date_user == false) {
 				// 會員檢查錯誤
@@ -179,13 +180,13 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 401 );
 				return;
 			}
-			$date_mongo_user = $this->mongo_users_model->get_member_id_by_mongo_id($date_user->uid);
+			$date_mongo_user = $this->mongo_users_model->get_member_id_by_mongo_id ( $date_user->uid );
 			// cache name key
 			$data_cache ['user_name'] = sprintf ( '%s_event_vote_%s_user_%s', ENVIRONMENT, $data_input ['config_id'], $date_user->uid );
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [$data_cache ['user_name']] = $this->cache->memcached->get ( $data_cache ['user_name'] );
-			// 活動重複
-			if ($data_cache [$data_cache ['user_name']] != false && isset ( $data_cache [$data_cache ['user_name']] [$data_input ['date']] )) {
+			// 7.活動重複
+			if ($data_cache [$data_cache ['user_name']] != false && isset ( $data_cache [$data_cache ['user_name']] [$data_input ['date']] ) && $data_cache [$data_cache ['user_name']] [$data_input ['date']] >= $date_config > vote_int) {
 				// 今天投票過
 				$this->data_result ['message'] = $this->lang->line ( 'event_repeat' );
 				$this->data_result ['code'] = $this->config->item ( 'event_repeat' );
@@ -195,17 +196,17 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 405 );
 				return;
 			}
-			//切字
+			// 切字
 			$status = false;
-			$items = explode(',', $data_input ['item_id']);
-			foreach ($items as $key=>$item_id){
+			$items = explode ( ',', $data_input ['item_id'] );
+			foreach ( $items as $key => $item_id ) {
 				// 投票資料
 				$data_post = array (
 						'config_id' => $data_input ['config_id'],
 						'data_no' => $key,
 						'item_id' => $item_id,
-						'mongo_id' => $date_mongo_user['_id'],
-						'member_id' => $date_mongo_user['member_id'],
+						'mongo_id' => $date_mongo_user ['_id'],
+						'member_id' => $date_mongo_user ['member_id'],
 						'user_created_at' => $date_user->created_at,
 						'ticket' => 1,
 						'year_at' => date ( 'Y' ),
@@ -213,7 +214,7 @@ class Votes extends MY_REST_Controller {
 						'day_at' => date ( 'd' ),
 						'hour_at' => date ( 'h' ),
 						'minute_at' => date ( 'i' ),
-						'created_at' => $data_input ['now_datetime']
+						'created_at' => $data_input ['now_datetime'] 
 				);
 				// 寫入資料庫
 				$status = $this->event_vote_select_model->insert_data ( $data_post );
