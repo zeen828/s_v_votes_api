@@ -186,7 +186,7 @@ class Votes extends MY_REST_Controller {
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [$data_cache ['user_name']] = $this->cache->memcached->get ( $data_cache ['user_name'] );
 			// 7.活動重複
-			if ($data_cache [$data_cache ['user_name']] != false && isset ( $data_cache [$data_cache ['user_name']] [$data_input ['date']] ) && $data_cache [$data_cache ['user_name']] [$data_input ['date']] >= $date_config->vote_int) {
+			if ($data_cache [$data_cache ['user_name']] != false && isset ( $data_cache [$data_cache ['user_name']] [$data_input ['date']] ) && $data_cache [$data_cache ['user_name']] [$data_input ['date']] >= $date_config ['vote_int']) {
 				// 今天投票過
 				$this->data_result ['message'] = $this->lang->line ( 'event_repeat' );
 				$this->data_result ['code'] = $this->config->item ( 'event_repeat' );
