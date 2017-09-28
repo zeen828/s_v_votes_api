@@ -102,7 +102,7 @@ class Votes extends MY_REST_Controller {
 					'message' => '',
 					'time' => 0 
 			);
-			// 接收變數
+			// 1.接收變數
 			$data_input ['date'] = date ( 'Y-m-d' );
 			$data_input ['now_datetime'] = date ( 'Y-m-d H:i:s' );
 			$data_input ['random'] = $this->post ( 'random' );
@@ -117,7 +117,7 @@ class Votes extends MY_REST_Controller {
 				$this->data_result ['debug'] ['config'] = &$date_config;
 				$this->data_result ['debug'] ['user'] = &$date_user;
 			}
-			// 必填檢查
+			// 2.必填檢查
 			if (empty ( $data_input ['random'] ) || empty ( $data_input ['token'] ) || empty ( $data_input ['config_id'] ) || empty ( $data_input ['item_id'] )) {
 				// 必填錯誤
 				$this->data_result ['message'] = $this->lang->line ( 'input_required_error' );
@@ -128,7 +128,7 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 416 );
 				return;
 			}
-			// 時間檢查(不可超過120秒)
+			// 3.時間檢查(不可超過300秒)
 			$datetime = substr ( time (), 0, 10 );
 			$from_datetime = substr ( $data_input ['random'], 0, 10 );
 			$time_gap = $datetime - $from_datetime;
@@ -142,7 +142,7 @@ class Votes extends MY_REST_Controller {
 				$this->response ( $this->data_result, 408 );
 				return;
 			}
-			// 有無投票活動設定
+			// 4.有無投票活動設定
 			$data_cache ['config_name'] = sprintf ( '%s_event_vote_%d', ENVIRONMENT, $data_input ['config_id'] );
 			$data_cache [$data_cache ['config_name']] = $this->cache->memcached->get ( $data_cache ['config_name'] );
 			if ($data_cache [$data_cache ['config_name']] == false) {
@@ -184,6 +184,7 @@ class Votes extends MY_REST_Controller {
 			$data_cache ['user_name'] = sprintf ( '%s_event_vote_%s_user_%s', ENVIRONMENT, $data_input ['config_id'], $date_user->uid );
 			// $this->cache->memcached->delete ( $data_cache['name_1'] );
 			$data_cache [$data_cache ['user_name']] = $this->cache->memcached->get ( $data_cache ['user_name'] );
+			// 活動重複
 			if ($data_cache [$data_cache ['user_name']] != false && isset ( $data_cache [$data_cache ['user_name']] [$data_input ['date']] )) {
 				// 今天投票過
 				$this->data_result ['message'] = $this->lang->line ( 'event_repeat' );

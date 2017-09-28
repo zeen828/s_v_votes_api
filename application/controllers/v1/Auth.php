@@ -59,7 +59,7 @@ class Auth extends MY_REST_Controller {
 				$this->response ( $this->data_result, 416 );
 				return;
 			}
-			// 時間檢查(不可超過120秒)
+			// 時間檢查(不可超過300秒)
 			$datetime = substr ( time (), 0, 10 );
 			$from_datetime = substr ( $data_input ['random'], 0, 10 );
 			$time_gap = $datetime - $from_datetime;
@@ -131,7 +131,7 @@ class Auth extends MY_REST_Controller {
 				$this->response ( $this->data_result, 416 );
 				return;
 			}
-			// 時間檢查(不可超過120秒)
+			// 時間檢查(不可超過300秒)
 			$datetime = substr ( time (), 0, 10 );
 			$from_datetime = substr ( $data_input ['random'], 0, 10 );
 			$time_gap = $datetime - $from_datetime;
